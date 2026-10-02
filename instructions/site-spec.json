@@ -43,10 +43,16 @@
   },
   "variants": {
     "hero": "editorial-split",
+    "about": "editorial-split",
+    "looks": "editorial-tabs",
+    "beforeAfter": "glow-slider",
     "gallery": "curated-grid",
-    "prestations": "menu-list",
+    "prestations": "pricing-cards",
     "testimonials": "cards-grid",
-    "partners": "brand-showcase"
+    "partners": "brand-showcase",
+    "timeline": "vertical-line",
+    "faq": "accordion-single",
+    "practicalInfo": "dual-cards"
   },
   "enabledFeatures": {
     "contactForm": true,
@@ -70,7 +76,7 @@
     "metaSocial": true,
     "structuredData": true,
     "reducedMotion": true,
-    "i18n": true,
+    "i18n": false,
     "customCursor": false,
     "soundEffects": false,
     "pageTransitions": false
@@ -87,10 +93,10 @@
     "fontBody": "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
     "textColor": "#E2E8F0",
     "textMuted": "#94A3B8",
-    "surfaceBorder": "rgba(198, 125, 67, 0.18)",
+    "surfaceBorder": "rgba(198, 125, 67, 0.22)",
     "radiusSm": "4px",
     "radiusMd": "8px",
-    "radiusLg": "12px",
+    "radiusLg": "14px",
     "heroOverlayOpacity": 0.65
   },
   "integrations": {
@@ -99,30 +105,21 @@
       "endpoint": "https://formsubmit.co/contact@ferronnerie-vaucanson.fr",
       "captcha": false
     },
-    "map": {
-      "provider": "osm",
-      "latitude": 45.7828,
-      "longitude": 4.8082,
-      "zoom": 15
-    },
-    "analytics": {
-      "provider": "none"
+    "firebase": {
+      "enabled": true,
+      "provider": "firestore",
+      "projectId": "test-10-53ebe",
+      "authDomain": "test-10-53ebe.firebaseapp.com",
+      "collections": {
+        "portfolio": "portfolio",
+        "looks": "looks_signature",
+        "beforeAfter": "before_after",
+        "prestations": "prestations",
+        "timeline": "timeline",
+        "testimonials": "testimonials",
+        "faq": "faq",
+        "practicalInfo": "practical_info"
+      }
     }
-  },
-  "performance": {
-    "lazyLoadOffset": 200,
-    "debounceDelay": 150,
-    "analyticsConsent": "opt-in"
-  },
-  "accessibility": {
-    "ariaCompliance": "WCAG-2.1-AA",
-    "minContrastRatio": 4.5,
-    "focusableSelectors": "a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex='-1'])"
-  },
-  "i18n": {
-    "defaultLanguage": "fr",
-    "availableLanguages": ["fr", "en"],
-    "fallbackLanguage": "fr",
-    "storageKey": "webexpress_lang"
   }
 }

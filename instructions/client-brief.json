@@ -4,26 +4,33 @@
   "clientName": "Édouard Vaucanson",
   "companyName": "Ferronnerie d'Art Vaucanson & Fils SAS",
   "selectedOffer": "autonomous",
-  "activity": "Ferronnerie d'Art, Métallerie d'Exception & Restauration du Patrimoine",
-  "activityDescription": "Atelier de forge artisanale spécialisé dans la création de portails monumentaux, garde-corps débillardés, marquises cintrées et la restauration d'ouvrages classés Monuments Historiques.",
-  "targetAudience": "Propriétaires de demeures de caractère, architectes du patrimoine, Monuments Historiques, décorateurs d'intérieur haut de gamme.",
+  "activity": "Ferronnerie d'Art, Métallerie Monumentale & Restauration du Patrimoine",
+  "activityDescription": "Atelier artisanal lyonnais de haute ferronnerie d'art et métallerie d'exception. Maîtres forgerons et Compagnons du Devoir spécialisés dans la forge traditionnelle au feu de houille, la création de portails monumentaux rivetés à chaud, les rampes débillardées et la restauration de métaux classés Monuments Historiques.",
+  "targetAudience": "Propriétaires de demeures de caractère, châteaux et manoirs, architectes du patrimoine (DPLG, Bâtiments de France), conservateurs des Monuments Historiques, décorateurs d'intérieur haut de gamme.",
   "city": "Lyon",
   "address": "18 Quai Paul Sédillat, 69009 Lyon",
   "phone": "04 78 83 24 19",
   "email": "contact@ferronnerie-vaucanson.fr",
-  "openingHours": "Du Lundi au Vendredi : 07h30 - 12h00 / 13h30 - 18h30. Samedi sur rendez-vous.",
-  "serviceArea": "Lyon Métropole, Monts d'Or, Beaujolais, Auvergne-Rhône-Alpes, France & Suisse",
-  "tone": "Technique, noble, mesuré et respectueux de la matière. Vocabulaire précis d'artisan ferronnier d'art. Zéro émoji.",
+  "openingHours": "Du Lundi au Vendredi : 07h30 - 12h00 / 13h30 - 18h30. Samedi sur rendez-vous pour visites de forge et études d'épure.",
+  "serviceArea": "Métropole de Lyon, Monts d'Or, Beaujolais, Auvergne-Rhône-Alpes, chantiers de prestige en France et Suisse romande (Genève, Vaud).",
+  "tone": "Technique, noble, mesuré et respectueux de la matière et du patrimoine. Vocabulaire rigoureux de forge d'art. Zéro émoji, zéro formule creuse.",
   "keySellingPoints": [
-    "Maître Artisan & Compagnon du Devoir du Tour de France",
-    "Forge manuelle au charbon de houille et assemblages rivetés à chaud",
-    "Agrément Restauration des Monuments Historiques & Label EPV",
-    "Étude d'épure au sol et relevé millimétrique sur site"
+    "Maître Artisan Forgeron & Compagnon du Devoir du Tour de France",
+    "Forge manuelle au feu de charbon, marteau-pilon et assemblages rivetés à chaud sans tube creux",
+    "Label d'État Entreprise du Patrimoine Vivant (EPV) & Agrément Restauration Monuments Historiques",
+    "Tracé géométrique d'épure au sol à échelle 1 et relevé millimétrique par scanner laser 3D sur site"
   ],
   "socialMedia": {
     "instagram": "https://instagram.com/ferronnerie.vaucanson",
     "facebook": "",
     "linkedin": "https://linkedin.com/company/ferronnerie-vaucanson",
     "googleMaps": "https://maps.google.com/?q=18+Quai+Paul+Sedillat+69009+Lyon"
+  },
+  "legal": {
+    "siret": "384 921 765 00031",
+    "capital": "50 000 €",
+    "tvaIntracom": "FR 42 384921765",
+    "codeNAF": "2511Z - Fabrication de structures métalliques et d'art",
+    "rcs": "RCS Lyon 384 921 765"
   }
 }

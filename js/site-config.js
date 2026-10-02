@@ -12,6 +12,7 @@ const SITE_CONFIG = {
 
     // ── Métadonnées du Projet ───────────────────────────────────────
     projectId:          "ferronnerie-art-vaucanson-lyon",
+    siteName:           "Vaucanson & Fils",
     offer:              "autonome",              // "autonome" | "essentiel"
     templateVersion:    "2.6.0",
     language:           "fr",
@@ -74,7 +75,7 @@ const SITE_CONFIG = {
         hero: "editorial-split",
         gallery: "curated-grid",
         partners: "brand-showcase",
-        prestations: "menu-list",
+        prestations: "pricing-cards",
         testimonials: "cards-grid"
     },
 

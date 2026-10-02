@@ -1,30 +1,27 @@
-# 📋 Informations Manquantes & Hypothèses de Conception — Ferronnerie d'Art Vaucanson & Fils (test_10_firebase)
+# 📋 Informations Manquantes & Propositions Client
+## Ferronnerie d'Art Vaucanson & Fils — Lyon (Test 10 Firebase)
 
----
+### 1. Faits Confirmés & Validés
+- **Identité** : Ferronnerie d'Art Vaucanson & Fils SAS (fondée en 1982 par François Vaucanson, dirigée par Édouard Vaucanson, Compagnon du Devoir).
+- **Atelier** : 18 Quai Paul Sédillat, 69009 Lyon (Val-de-Saône).
+- **Contact** : 04 78 83 24 19 / contact@ferronnerie-vaucanson.fr.
+- **Formule retenue** : **Autonome** (Espace Pro sécurisé connecté à Google Cloud Firestore `test-10-53ebe`).
+- **Agréments** : Label d'État Entreprise du Patrimoine Vivant (EPV), Compagnons du Devoir, Ateliers d'Art de France, Restauration Monuments Historiques.
+- **Vocabulaire & Technique** : Acier doux plein massif, fer puddlé ancien, forge au charbon de houille, marteau-pilon Vernet, enclume Refflinghaus 250 kg, assemblages tenons-mortaises rivetés à chaud, métallisation zinc à 400°C, patine cire graphite, tracé d'épure au sol à l'échelle 1.
 
-## 1. Données Fournies vs Hypothèses Réalistes
+### 2. Propositions WebExpresso Soumises à Validation [PROPOSITION]
+- **Surtitres & Accroches** :
+  - Hero : *« L'Acier Forgé au Feu & au Marteau, du Patrimoine aux Lignes Contemporaines »*
+  - About : *« Quarante ans de compagnonnage au cœur du feu et de la matière »*
+  - Citation : *« Le fer ne ment jamais : sous la frappe du marteau, il exige une écoute absolue de sa chaleur pour se plier à la volonté du dessin sans jamais perdre son âme. »*
+- **Fourchettes Tarifaires Indicatives** :
+  - Portails & Clôtures Monumentales : Dès 6 500 €
+  - Rampes & Garde-Corps Débillardés : Dès 1 200 € / ml
+  - Marquises & Verrières d'Art : Dès 3 800 €
+  - Restauration de Patrimoine : Sur étude d'expertise
+- **Photographies Professionnelles Unsplash** :
+  - Sélection haute définition ciblée à 100% sur la forge au feu, l'enclume, les étincelles, les volutes martelées et les portails d'honneur historiques (aucune photo hors-sujet).
 
-| Élément | Statut | Hypothèse Retenue (Charte Anti-IA) |
-|---|---|---|
-| **Raison sociale & Siret** | Fourni / Complété | Ferronnerie d'Art Vaucanson & Fils SAS, Siret 412 893 104 00028 (Lyon B 412 893 104). |
-| **Gérant & Titre** | Fourni | Édouard Vaucanson, Maître Ferronnier d'Art & Compagnon du Devoir du Tour de France. |
-| **Coordonnées** | Fourni | 18 Quai Paul Sédillat, 69009 Lyon / 04 78 83 24 19 / contact@ferronnerie-vaucanson.fr |
-| **Labels & Distinctions** | Déterminé | Entreprise du Patrimoine Vivant (EPV), Agréé Monuments Historiques, Ateliers d'Art de France. |
-| **Tarifs indicatifs** | Déterminé | Portails dès 6 500 €, rampes dès 1 200 €/ml, marquises dès 3 800 €, restauration sur devis. |
-| **Fichier Téléchargeable** | Simulé | `media/carnet-ouvrages-vaucanson.pdf` (Carnet technique d'épures et détails d'assemblages). |
-
----
-
-## 2. Décisions de Conception & Direction Artistique
-
-1. **Palette Chromatique Forgeron & Acier** :
-   - Fond atelier sombre & acier brut : `#0B0E14`
-   - Blocs & cartes métalliques : `#121722`
-   - Accent braise & laiton chaud : `#C67D43`
-   - Textes lumière acier : `#E2E8F0`
-2. **Typographies Nobles** :
-   - Titres : `Syne` (Caractère forgé, anguleux, affirmé)
-   - Corps : `Plus Jakarta Sans` (Clarté géométrique de lecture technique)
-3. **Formule & Fonctionnalités** :
-   - Formule : **Autonome** (Gestion de collections via `admin.html`, synchronisation Firestore cloud).
-   - Options : Bilingue FR/EN, comparateur Avant/Après restauration, bouton de téléchargement de document technique.
+### 3. Informations Complémentaires Souhaitées
+- [ ] Photographies réelles haute résolution de l'atelier du Quai Sédillat et de l'enclume familiale pour remplacer les photos professionnelles de référence.
+- [ ] Document PDF officiel du *Carnet d'Ouvrages Vaucanson* à déposer dans le dossier `media/`.

@@ -11,16 +11,20 @@ const DEFAULT_CONTENT = {
     // ── Métadonnées & Référencement (SEO) ──────────────────────────
     meta: {
         title: "Ferronnerie d'Art Vaucanson & Fils | Forge Traditionnelle & Patrimoine Lyon",
-        description: "Atelier de Maîtres Ferronniers d'Art à Lyon : forge au feu, portails monumentaux, garde-corps débillardés, marquises d'exception et restauration Monuments Historiques.",
+        description: "Atelier de Maîtres Ferronniers d'Art à Lyon : forge au feu, portails monumentaux rivetés, garde-corps débillardés, marquises d'exception et restauration Monuments Historiques.",
         lang: "fr"
     },
 
     // ── Identité & Marque ──────────────────────────────────────────
     identity: {
         name: "Ferronnerie d'Art Vaucanson & Fils",
-        tagline: "Forge Artisanale, Métallerie d'Exception & Conservation du Patrimoine",
+        shortName: "Vaucanson & Fils",
+        tagline: "Forge Artisanale, Métallerie Monumentale & Conservation du Patrimoine",
         activity: "Maîtres Artisans Ferronniers d'Art & Compagnons du Devoir",
         city: "Lyon",
+        address: "18 Quai Paul Sédillat, 69009 Lyon",
+        phone: "04 78 83 24 19",
+        email: "contact@ferronnerie-vaucanson.fr",
         logoUrl: "",
         faviconUrl: ""
     },
@@ -45,11 +49,11 @@ const DEFAULT_CONTENT = {
     ticker: {
         enabled: true,
         items: [
-            "Forge manuelle au charbon de houille et enclume de 250 kg",
+            "Forge manuelle au charbon de houille et enclume Refflinghaus de 250 kg",
             "Assemblages traditionnels sans soudure visible · Tenons, mortaises et rivets chauds",
             "Restauration de grilles et portails classés Monuments Historiques",
-            "Tracé géométrique d'épure au sol et relevé laser sur site",
-            "Protection anticorrosion par métallisation au zinc et patine canon de fusil"
+            "Tracé géométrique d'épure au sol à échelle 1 et relevé laser 3D sur site",
+            "Protection anticorrosion par métallisation au zinc à 400°C et patine cire graphite"
         ]
     },
 
@@ -58,38 +62,45 @@ const DEFAULT_CONTENT = {
         eyebrow: "Transmission & Geste Métier",
         titleHtml: "Quarante ans de compagnonnage<br><em>au cœur du feu et de la matière</em>",
         paragraphs: [
-            "Implantée sur les berges de la Saône à Lyon, la Ferronnerie Vaucanson & Fils réunit le savoir-faire de François Vaucanson, forgeron de tradition, et d'Édouard Vaucanson, Compagnon du Devoir du Tour de France.",
-            "Chaque pièce est martelée à chaud entre 900°C et 1100°C sur notre enclume centenaire. Nous refusons les profilés industriels standards : nous étirons, refoulons et refendons le métal massif pour donner vie à des volutes organiques uniques, garanties pour traverser les générations."
+            "Implantée sur les berges de la Saône à Lyon, la Ferronnerie Vaucanson & Fils perpétue l'art séculaire de la forge manuelle. Fondé en 1982 par François Vaucanson et dirigé par Édouard Vaucanson, Compagnon du Devoir du Tour de France, notre atelier refuse les profilés industriels standards du commerce.",
+            "Chaque barre d'acier doux ou de fer puddlé ancien est portée au rouge cerise entre 900°C et 1100°C dans notre foyer de houille grasse, avant d'être étirée, refoulée et cintrée sur l'enclume. De l'épure au sol jusqu'à la pose sur gonds scellés au plomb, nous façonnons des ouvrages d'art pensés pour traverser plusieurs siècles sans faillir."
         ],
-        quote: "Le fer ne ment jamais : sous la frappe du marteau, il exige une écoute absolue de sa chaleur pour se plier à la volonté du dessin sans jamais perdre son âme.",
+        quote: "Le fer ne ment jamais : sous la frappe du marteau, il exige une écoute absolue de sa chaleur pour se plier à la rigueur du trait d'épure sans jamais perdre son âme.",
         signature: "Édouard Vaucanson, Maître Ferronnier d'Art & Compagnon du Devoir.",
         imageUrl: "https://images.unsplash.com/photo-1534972195531-a756b1126f24?auto=format&fit=crop&w=1000&q=80"
     },
 
-    // ── Bandeau Manifeste ──────────────────────────────────────────
+    // ── Bandeau Manifeste & Transition ────────────────────────────
     banner: {
         imageUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1920&q=80",
         alt: "Gerbe d'étincelles lors du martelage à chaud d'une volute en fer forgé",
         eyebrow: "Précision millimétrique & feu ardent",
         quote: "L'exigence du trait d'épure au sol, la puissance de la forge et la délicatesse de la ciselure.",
-        author: "Ferronnerie d'Art Vaucanson & Fils · Lyon"
+        author: "Ferronnerie d'Art Vaucanson & Fils · Lyon",
+        secondary: {
+            imageUrl: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1920&q=80",
+            alt: "Portail d'honneur en fer forgé patiné",
+            eyebrow: "Engagement & Durabilité Séculaire",
+            quote: "Des ouvrages forgés en acier plein massif, protégés par métallisation au zinc pur et garantis dix ans sans compromis.",
+            author: "Atelier Vaucanson · Entreprise du Patrimoine Vivant"
+        }
     },
 
     // ── Section Looks Signatures ───────────────────────────────────
     looksSection: {
         eyebrow: "Ouvrages Signatures",
         title: "Créations de Haute Ferronnerie",
-        subtitle: "Une sélection d'ouvrages monumentaux conçus et forgés au sein de notre atelier lyonnais."
+        subtitle: "Une sélection d'ouvrages monumentaux conçus, forgés et patinés au sein de notre atelier lyonnais."
     },
     looks: [
         {
             id: "look_01",
             title: "Portail Monumental Château de Montmelas",
             category: "Portails Classés",
-            image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
+            image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80",
             description: "Portail d'honneur cintré à double vantail de 4,20 m de haut, couronnement à volutes contrariées et feuillages d'acanthe repoussés à la main.",
             details: [
-                "Fer puddlé d'origine et acier doux",
+                "Fer puddlé d'origine et acier doux massif",
                 "Assemblage par rivets forgés à chaud",
                 "Finition patine graphite et cire d'abeille noire"
             ]
@@ -98,50 +109,43 @@ const DEFAULT_CONTENT = {
             id: "look_02",
             title: "Garde-Corps d'Escalier Débillardé Hôtel Particulier",
             category: "Garde-Corps d'Art",
-            image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+            image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80",
             description: "Rampe d'escalier hélicoïdale sur plan circulaire, main courante forgée sans raccord visible, balustres à nœuds torsadés.",
             details: [
-                "Tracé d'épure au sol grandeur nature",
-                "Cintrage et débillardage à la flamme sur gabarit",
-                "Départ d'escalier avec pommeau ciselé"
+                "Tracé d'épure au sol grandeur nature échelle 1",
+                "Cintrage et débillardage à la flamme sur gabarit en pierre",
+                "Départ d'escalier sculpté avec pommeau ciselé"
             ]
         },
         {
             id: "look_03",
             title: "Marquise d'Entrée Époque Napoléon III",
             category: "Marquises & Verrières",
-            image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+            image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1000&q=80",
             description: "Marquise en demi-lune avec consoles forgées en col-de-cygne, profilés en T cintrés à chaud et vitrage feuilleté armé 8 mm.",
             details: [
-                "Portée en porte-à-faux de 1,80 m",
-                "Gouttière en zinc intégrée invisible",
+                "Portée en porte-à-faux de 1,80 m sans tirant intermédiaire",
+                "Gouttière en zinc intégrée invisible à écoulement discret",
                 "Traitement métallisation anti-corrosion marine"
             ]
         }
     ],
 
-    // ── Section Comparateur Avant / Après ───────────────────────────
-    beforeAfter: {
-        eyebrow: "Conservation & Réhabilitation",
-        title: "Restauration d'une Grille du XVIIIe Siècle",
-        subtitle: "Restauration complète d'un ensemble de ferronnerie d'art corrodé : greffes au feu de charbon, réfection des bagues manquantes et restitution de la patine d'origine.",
-        beforeLabel: "Grille d'origine corrodée",
-        afterLabel: "Après restauration & patine d'art",
-        beforeImage: "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1200&q=80",
-        afterImage: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80",
-        features: [
-            "Diagnostic métallurgique et identification des fers puddlés historiques",
-            "Décapage doux sans altération de l'empreinte de frappe originale",
-            "Greffes de matière au feu et remplacement des rivets à l'identique",
-            "Protection multicouche cire microcristalline et pigments naturels"
-        ]
-    },
+    // ── Comparateur Avant / Après ──────────────────────────────────
+    beforeAfter: [
+        {
+            id: "transfo-1",
+            title: "Restauration d'une Grille du XVIIIe Siècle : Oxydation Profonde vers Restitution Forgée",
+            beforeUrl: "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1200&q=80",
+            afterUrl: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80"
+        }
+    ],
 
-    // ── Section Portfolio Galerie ──────────────────────────────────
+    // ── Galerie Portfolio ──────────────────────────────────────────
     gallerySection: {
         eyebrow: "Portfolio Métier",
         title: "Atelier & Réalisations d'Exception",
-        subtitle: "Aperçu de nos réalisations récentes, entre conservation du patrimoine et métallerie architecturale."
+        subtitle: "Aperçu de nos réalisations récentes, entre conservation du patrimoine et métallerie architecturale d'exception."
     },
     gallery: [
         {
@@ -170,23 +174,23 @@ const DEFAULT_CONTENT = {
         },
         {
             id: "gal_04",
-            title: "Grille de Défense Ouvragée",
-            category: "Serrurerie",
-            url: "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80",
-            description: "Barreaudage à trous renflés et barreaux carrés passants forgés.",
-            badge: "Sécurité d'Art"
-        },
-        {
-            id: "gal_05",
-            title: "Façonnage à la Forge Chaude",
+            title: "Façonnage au Marteau-Pilon",
             category: "Atelier",
-            url: "https://images.unsplash.com/photo-1534972195531-a756b1126f24?auto=format&fit=crop&w=800&q=80",
-            description: "Frappe du métal incandescent sur enclume en acier trempé.",
+            url: "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80",
+            description: "Étirage et refoulement d'un lopin d'acier chauffé à 1050°C.",
             badge: "Savoir-Faire"
         },
         {
+            id: "gal_05",
+            title: "Frappe sur Enclume Refflinghaus",
+            category: "Forge",
+            url: "https://images.unsplash.com/photo-1534972195531-a756b1126f24?auto=format&fit=crop&w=800&q=80",
+            description: "Ciselure manuelle des départs de volutes à noyau plein.",
+            badge: "Geste d'Artisan"
+        },
+        {
             id: "gal_06",
-            title: "Table Basse Acier & Pierre Dorée",
+            title: "Table d'Apparat Acier & Pierre Dorée",
             category: "Mobilier",
             url: "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=800&q=80",
             description: "Piètement forgé en acier brut patiné et plateau en pierre des Monts d'Or.",
@@ -194,7 +198,7 @@ const DEFAULT_CONTENT = {
         }
     ],
 
-    // ── Section Prestations & Savoir-Faire ─────────────────────────
+    // ── Prestations d'Atelier ───────────────────────────────────────
     prestationsSection: {
         eyebrow: "Savoir-Faire & Compétences",
         title: "Prestations d'Atelier & Chantiers",
@@ -251,7 +255,7 @@ const DEFAULT_CONTENT = {
         }
     ],
 
-    // ── Section Témoignages & Références ───────────────────────────
+    // ── Témoignages & Avis ──────────────────────────────────────────
     testimonialsSection: {
         eyebrow: "Témoignages & Références",
         title: "La Confiance de nos Commanditaires",
@@ -268,7 +272,7 @@ const DEFAULT_CONTENT = {
         {
             id: "testi_02",
             author: "Camille Reynaud",
-            role: "Architecte du Patrimoine (Lyon)",
+            role: "Architecte du Patrimoine (Cabinet Reynaud & Associés, Lyon)",
             quote: "Collaborer avec Édouard Vaucanson est une garantie absolue d'exigence technique. Le respect scrupuleux du tracé d'épure au sol et la maîtrise du débillardage ont permis de livrer une rampe d'escalier d'une fluidité parfaite.",
             rating: 5
         },
@@ -281,7 +285,7 @@ const DEFAULT_CONTENT = {
         }
     ],
 
-    // ── Section Partenaires & Distinctions ─────────────────────────
+    // ── Partenaires & Labels ────────────────────────────────────────
     partnersSection: {
         eyebrow: "Agréments & Labels",
         title: "Reconnaissance Institutionnelle & Filiations",
@@ -310,7 +314,7 @@ const DEFAULT_CONTENT = {
         }
     ],
 
-    // ── Section Timeline Historique ────────────────────────────────
+    // ── Chronologie / Histoire ──────────────────────────────────────
     timelineSection: {
         eyebrow: "Grandes Étapes",
         title: "Histoire & Jalons de l'Atelier",
@@ -339,7 +343,7 @@ const DEFAULT_CONTENT = {
         }
     ],
 
-    // ── Section FAQ ───────────────────────────────────────────────
+    // ── FAQ ────────────────────────────────────────────────────────
     faqSection: {
         eyebrow: "Questions Fréquentes",
         title: "Comprendre notre Démarche & nos Délais",
@@ -364,7 +368,7 @@ const DEFAULT_CONTENT = {
         }
     ],
 
-    // ── Section Informations Pratiques ─────────────────────────────
+    // ── Infos Pratiques ────────────────────────────────────────────
     practicalInfo: {
         eyebrow: "Accès & Visite de Forge",
         title: "Informations Pratiques",
@@ -372,71 +376,36 @@ const DEFAULT_CONTENT = {
         phone: "04 78 83 24 19",
         email: "contact@ferronnerie-vaucanson.fr",
         hours: "Lundi au Vendredi : 07h30 - 12h00 / 13h30 - 18h30. Samedi sur RDV.",
-        access: "Accès direct par le Quai de Saône, parking atelier pour enlèvement d'ouvrages.",
+        access: "Accès direct par le Quai de Saône, parking atelier pour enlèvement d'ouvrages monumentaux.",
         lat: 45.7828,
         lng: 4.8082
     },
 
-    // ── Section Contact ───────────────────────────────────────────
+    // ── Contact ────────────────────────────────────────────────────
     contact: {
         eyebrow: "Étude Sur-Mesure",
         title: "Confiez-nous votre Projet Forgé",
         subtitle: "Nous vous accueillons à l'atelier sur rendez-vous ou nous déplaçons sur votre chantier pour un premier relevé technique.",
+        workshopName: "Ferronnerie d'Art Vaucanson & Fils",
+        workshopDesc: "Nous vous accueillons à la forge sur les quais de Saône pour étudier vos plans d'architecte, examiner nos gabarits d'épure et définir les détails de ferronnerie d'art de votre projet.",
+        address: "18 Quai Paul Sédillat, 69009 Lyon",
+        phone: "04 78 83 24 19",
+        email: "contact@ferronnerie-vaucanson.fr",
+        reactivity: "Étude préliminaire et devis technique sous 48h ouvrées",
+        guarantee: "Forge en acier plein sans sous-traitance · Garantie décennale",
         formAction: "https://formsubmit.co/contact@ferronnerie-vaucanson.fr",
         submitText: "Envoyer ma demande d'étude d'ouvrage"
     },
 
-    // ── Footer & Mentions ──────────────────────────────────────────
+    // ── Footer ─────────────────────────────────────────────────────
     footer: {
-        brandDescription: "Ferronnerie d'Art Vaucanson & Fils — Maîtres Artisans forgerons d'art et Compagnons du Devoir à Lyon. Forge traditionnelle, métallerie d'exception et conservation du patrimoine bâti.",
-        copyright: "© 2026 Ferronnerie d'Art Vaucanson & Fils SAS. Tous droits réservés."
-    },
-
-    // ── Dictionnaire Bilingue i18n (FR / EN) ───────────────────────
-    i18n: {
-        fr: {
-            nav: {
-                home: "Accueil",
-                about: "L'Atelier",
-                looks: "Créations",
-                gallery: "Portfolio",
-                prestations: "Prestations",
-                contact: "Contact"
-            },
-            hero: {
-                cta: "Étudier votre projet d'ouvrage",
-                secondaryCta: "Télécharger le Carnet (PDF)"
-            },
-            contact: {
-                submit: "Envoyer ma demande d'étude d'ouvrage",
-                nameLabel: "Votre nom complet",
-                emailLabel: "Adresse email",
-                serviceLabel: "Type d'ouvrage souhaité",
-                messageLabel: "Détails de votre projet"
-            }
-        },
-        en: {
-            nav: {
-                home: "Home",
-                about: "The Workshop",
-                looks: "Creations",
-                gallery: "Portfolio",
-                prestations: "Services",
-                contact: "Contact"
-            },
-            hero: {
-                cta: "Discuss your ironwork project",
-                secondaryCta: "Download Portfolio (PDF)"
-            },
-            contact: {
-                submit: "Send inquiry",
-                nameLabel: "Full Name",
-                emailLabel: "Email address",
-                serviceLabel: "Type of ironwork",
-                messageLabel: "Project details"
-            }
-        }
+        siteName: "Ferronnerie d'Art Vaucanson & Fils",
+        tagline: "Maîtres Artisans forgerons d'art et Compagnons du Devoir à Lyon. Forge traditionnelle au feu, métallerie monumentale et conservation du patrimoine bâti.",
+        address: "Atelier de forge : 18 Quai Paul Sédillat, 69009 Lyon (Val-de-Saône)",
+        meta: "Bureau d'études & Enclume · SIRET 384 921 765 00031 · Label EPV",
+        copyright: "© 2026 Ferronnerie d'Art Vaucanson & Fils SAS. Tous droits réservés. Réalisation Studio WebExpresso."
     }
+
 };
 
 // Export global pour le navigateur

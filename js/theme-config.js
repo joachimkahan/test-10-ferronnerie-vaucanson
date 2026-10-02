@@ -1,54 +1,50 @@
 /**
  * THEME-CONFIG.JS — Système de Design & Tokens Visuels
  * ============================================================
- * [EDITABLE] Ce fichier centralise l'identité visuelle du site.
- *
- * Rôle :
- * - Définir la palette de couleurs, la typographie, les espacements et les ombres
- * - Permettre une personnalisation graphique rapide sans toucher au CSS
- * - Exposer la méthode `applyTheme()` pour injecter les variables CSS dans `:root`
+ * [EDITABLE] Ferronnerie d'Art Vaucanson & Fils — Lyon (Test 10 Firebase)
+ * Thème Sombre Forge Traditionnelle & Haute Métallerie d'Art
  * ============================================================
  */
 
 const THEME_CONFIG = {
 
-    // ── Palette de Couleurs (Design Tokens) ─────────────────────────
+    // ── Palette de Couleurs (Design Tokens Atelier Forge) ───────────
     colors: {
-        blancArt:        "#FAF7F2",   // Fond principal clair éditorial
-        champagne:       "#E8D5C0",   // Teinte douce secondaire
-        terracottaPale:  "#D4A898",   // Accent subtil
-        orDiscret:       "#C9A96E",   // Or signature / Accent premium
-        encre:           "#1C1916",   // Texte principal haute lisibilité
-        grisPierre:      "#8C7B72",   // Texte secondaire atténué
-        orGlow:          "rgba(201, 169, 110, 0.12)",
-        encreLight:      "rgba(28, 25, 22, 0.06)"
+        blancArt:        "#0B0E14",   // Fond principal sombre forge (acier noirci)
+        champagne:       "#121722",   // Surfaces des cartes & blocs (fonte d'atelier)
+        terracottaPale:  "#D98E54",   // Éclat braise vive / accent
+        orDiscret:       "#C67D43",   // Laiton chaud & braise de forge (primaire)
+        encre:           "#E2E8F0",   // Texte principal acier poli (haute lisibilité sur fond sombre)
+        grisPierre:      "#94A3B8",   // Texte secondaire cendre minérale
+        orGlow:          "rgba(198, 125, 67, 0.22)",
+        encreLight:      "rgba(226, 232, 240, 0.08)"
     },
 
-    // ── Typographie ────────────────────────────────────────────────
+    // ── Typographie Forgeron d'Art ─────────────────────────────────
     typography: {
-        fontDisplay:     "'Cormorant Garamond', serif",
-        fontBody:        "'Lato', sans-serif"
+        fontDisplay:     "'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+        fontBody:        "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
     },
 
     // ── Mise en page & Dimensions ──────────────────────────────────
     layout: {
         containerMax:    "1200px",
-        sectionPaddingY: "160px"
+        sectionPaddingY: "140px"
     },
 
-    // ── Ombres & Élévation ─────────────────────────────────────────
+    // ── Ombres & Élévation (Thème Sombre) ──────────────────────────
     shadows: {
-        card:   "0 2px 24px rgba(0, 0, 0, 0.06)",
-        hover:  "0 8px 40px rgba(0, 0, 0, 0.10)",
-        subtle: "0 1px 8px rgba(0, 0, 0, 0.04)"
+        card:   "0 4px 20px rgba(0, 0, 0, 0.35)",
+        hover:  "0 12px 36px rgba(0, 0, 0, 0.55)",
+        subtle: "0 2px 10px rgba(0, 0, 0, 0.25)"
     },
 
     // ── Motion & Transitions ───────────────────────────────────────
     motion: {
-        transitionSpeed:  "0.35s",
-        transitionSlow:   "0.6s",
+        transitionSpeed:  "0.25s",
+        transitionSlow:   "0.5s",
         customCursor:     false,
-        pageVoile:        true,
+        pageVoile:        false,
         parallax:         true
     },
 
@@ -64,10 +60,13 @@ const THEME_CONFIG = {
             if (this.colors.blancArt) {
                 root.style.setProperty('--color-bg', this.colors.blancArt);
                 root.style.setProperty('--blanc-art', this.colors.blancArt);
+                root.style.setProperty('--fond-page', this.colors.blancArt);
             }
             if (this.colors.champagne) {
-                root.style.setProperty('--color-surface-warm', this.colors.champagne);
+                root.style.setProperty('--color-surface', this.colors.champagne);
+                root.style.setProperty('--color-surface-warm', '#181E2C');
                 root.style.setProperty('--champagne', this.colors.champagne);
+                root.style.setProperty('--fond-carte', this.colors.champagne);
             }
             if (this.colors.terracottaPale) {
                 root.style.setProperty('--color-accent', this.colors.terracottaPale);
@@ -80,13 +79,18 @@ const THEME_CONFIG = {
             if (this.colors.encre) {
                 root.style.setProperty('--color-text-main', this.colors.encre);
                 root.style.setProperty('--encre', this.colors.encre);
+                root.style.setProperty('--texte-principal', this.colors.encre);
             }
             if (this.colors.grisPierre) {
                 root.style.setProperty('--color-text-muted', this.colors.grisPierre);
                 root.style.setProperty('--gris-pierre', this.colors.grisPierre);
+                root.style.setProperty('--texte-secondaire', this.colors.grisPierre);
             }
             if (this.colors.orGlow) root.style.setProperty('--or-glow', this.colors.orGlow);
             if (this.colors.encreLight) root.style.setProperty('--encre-light', this.colors.encreLight);
+            root.style.setProperty('--color-surface-hover', '#1B2232');
+            root.style.setProperty('--color-border', 'rgba(198, 125, 67, 0.22)');
+            root.style.setProperty('--color-border-hover', 'rgba(217, 142, 84, 0.55)');
         }
 
         // Application de la typographie
@@ -94,8 +98,12 @@ const THEME_CONFIG = {
             if (this.typography.fontDisplay) {
                 root.style.setProperty('--font-display', this.typography.fontDisplay);
                 root.style.setProperty('--font-heading', this.typography.fontDisplay);
+                root.style.setProperty('--police-titre', this.typography.fontDisplay);
             }
-            if (this.typography.fontBody) root.style.setProperty('--font-body', this.typography.fontBody);
+            if (this.typography.fontBody) {
+                root.style.setProperty('--font-body', this.typography.fontBody);
+                root.style.setProperty('--police-corps', this.typography.fontBody);
+            }
         }
 
         // Application du layout
@@ -103,7 +111,7 @@ const THEME_CONFIG = {
             if (this.layout.containerMax) root.style.setProperty('--container-max', this.layout.containerMax);
         }
 
-        console.log('[ThemeConfig] Tokens de design appliqués avec succès.');
+        console.log('[ThemeConfig] Tokens de design Ferronnerie Vaucanson appliqués avec succès.');
     }
 
 };
@@ -112,4 +120,3 @@ const THEME_CONFIG = {
 if (typeof window !== 'undefined') {
     window.THEME_CONFIG = THEME_CONFIG;
 }
-

@@ -130,8 +130,14 @@
             try {
                 const content = await window.SiteContent.getFullContent();
                 if (content && content.about) {
+                    const eyebrowEl = aboutEl.querySelector('.eyebrow');
+                    if (eyebrowEl && content.about.eyebrow) eyebrowEl.textContent = content.about.eyebrow;
+
                     const h2El = aboutEl.querySelector('h2');
                     if (h2El && content.about.titleHtml) h2El.innerHTML = content.about.titleHtml;
+
+                    const quoteEl = aboutEl.querySelector('.pull-quote');
+                    if (quoteEl && content.about.quote) quoteEl.textContent = content.about.quote;
 
                     const sigEl = aboutEl.querySelector('.about-signature');
                     if (sigEl && content.about.signature) sigEl.textContent = content.about.signature;
@@ -140,6 +146,13 @@
                     if (imgEl && content.about.imageUrl) {
                         imgEl.src = content.about.imageUrl;
                         imgEl.alt = content.about.title || 'À propos';
+                    }
+
+                    if (Array.isArray(content.about.paragraphs) && content.about.paragraphs.length > 0) {
+                        const standardPs = aboutEl.querySelectorAll('.about-text p:not(.pull-quote)');
+                        content.about.paragraphs.forEach((pText, idx) => {
+                            if (standardPs[idx]) standardPs[idx].textContent = pText;
+                        });
                     }
                 }
             } catch (err) {
@@ -1168,6 +1181,40 @@
             return;
         }
         contactSection.style.display = '';
+
+        let contactData = null;
+        if (window.SiteContent && typeof window.SiteContent.getFullContent === 'function') {
+            try {
+                const content = await window.SiteContent.getFullContent();
+                if (content && content.contact) contactData = content.contact;
+            } catch (err) {
+                console.warn('[SectionRenderer] Erreur contact:', err);
+            }
+        }
+        if (!contactData && typeof DEFAULT_CONTENT !== 'undefined' && DEFAULT_CONTENT.contact) {
+            contactData = DEFAULT_CONTENT.contact;
+        }
+
+        if (contactData) {
+            const h3El = contactSection.querySelector('.contact-card-info h3');
+            if (h3El && contactData.workshopName) h3El.textContent = contactData.workshopName;
+
+            const descEl = contactSection.querySelector('.contact-card-desc');
+            if (descEl && contactData.workshopDesc) descEl.textContent = contactData.workshopDesc;
+
+            const detailValues = contactSection.querySelectorAll('.contact-detail-value');
+            if (detailValues.length >= 3) {
+                if (contactData.address) detailValues[0].textContent = contactData.address;
+                if (contactData.phone) {
+                    detailValues[1].textContent = contactData.phone;
+                    if (detailValues[1].tagName === 'A') detailValues[1].setAttribute('href', 'tel:' + contactData.phone.replace(/\s+/g, ''));
+                }
+                if (contactData.reactivity) detailValues[2].textContent = contactData.reactivity;
+            }
+
+            const guaranteeSpan = contactSection.querySelector('.contact-guarantee-pill span');
+            if (guaranteeSpan && contactData.guarantee) guaranteeSpan.textContent = contactData.guarantee;
+        }
     }
 
     /**

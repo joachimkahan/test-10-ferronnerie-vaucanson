@@ -42,7 +42,7 @@
         // ── Identité de Marque & Logo (Navbar, Footer, Modale & Favicon) ──
         const brandName = (SITE_CONFIG.siteName && SITE_CONFIG.siteName !== 'NOM_DU_CLIENT')
             ? SITE_CONFIG.siteName
-            : (window.DEFAULT_CONTENT?.identity?.name || 'Votre Entreprise');
+            : (window.DEFAULT_CONTENT?.identity?.shortName || window.DEFAULT_CONTENT?.identity?.name || 'Votre Entreprise');
 
         const logoUrl = SITE_CONFIG.branding?.logoUrl || window.DEFAULT_CONTENT?.identity?.logoUrl || '';
         const displayMode = SITE_CONFIG.branding?.displayMode || 'icon-and-text'; // "icon-and-text" | "logo-only" | "text-only"
@@ -64,7 +64,7 @@
         // Footer
         const footerName = document.getElementById('footer-site-name');
         if (footerName) {
-            footerName.textContent = brandName;
+            footerName.textContent = window.DEFAULT_CONTENT?.identity?.name || brandName;
         }
 
         // Footer Logo
