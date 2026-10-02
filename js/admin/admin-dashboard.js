@@ -94,8 +94,14 @@
                     const id = btn.getAttribute('data-id');
                     btn.disabled = true;
                     btn.textContent = 'Suppression...';
-                    await repo.deleteGalleryItem(id);
-                    await this.loadGallery();
+                    try {
+                        await repo.deleteGalleryItem(id);
+                        await this.loadGallery();
+                    } catch (err) {
+                        console.error('[AdminDashboard] Erreur suppression galerie:', err);
+                        btn.disabled = false;
+                        btn.textContent = 'Supprimer';
+                    }
                 });
             });
         },
@@ -211,8 +217,14 @@
                     const id = btn.getAttribute('data-id');
                     btn.disabled = true;
                     btn.textContent = 'Suppression...';
-                    await repo.deleteLook(id);
-                    await this.loadLooks();
+                    try {
+                        await repo.deleteLook(id);
+                        await this.loadLooks();
+                    } catch (err) {
+                        console.error('[AdminDashboard] Erreur suppression look:', err);
+                        btn.disabled = false;
+                        btn.textContent = 'Supprimer';
+                    }
                 });
             });
         },
@@ -316,8 +328,14 @@
                     const id = btn.getAttribute('data-id');
                     btn.disabled = true;
                     btn.textContent = 'Suppression...';
-                    await repo.deleteBeforeAfterItem(id);
-                    await this.loadBeforeAfter();
+                    try {
+                        await repo.deleteBeforeAfterItem(id);
+                        await this.loadBeforeAfter();
+                    } catch (err) {
+                        console.error('[AdminDashboard] Erreur suppression avant/après:', err);
+                        btn.disabled = false;
+                        btn.textContent = 'Supprimer';
+                    }
                 });
             });
         },
@@ -412,8 +430,14 @@
                     const id = btn.getAttribute('data-id');
                     btn.disabled = true;
                     btn.textContent = 'Suppression...';
-                    await repo.deletePrestation(id);
-                    await this.loadPrestations();
+                    try {
+                        await repo.deletePrestation(id);
+                        await this.loadPrestations();
+                    } catch (err) {
+                        console.error('[AdminDashboard] Erreur suppression prestation:', err);
+                        btn.disabled = false;
+                        btn.textContent = 'Supprimer';
+                    }
                 });
             });
         },
@@ -508,8 +532,14 @@
                     const index = parseInt(btn.getAttribute('data-index'), 10);
                     btn.disabled = true;
                     btn.textContent = 'Suppression...';
-                    await repo.deleteProcessStep(index);
-                    await this.loadProcess();
+                    try {
+                        await repo.deleteProcessStep(index);
+                        await this.loadProcess();
+                    } catch (err) {
+                        console.error('[AdminDashboard] Erreur suppression étape:', err);
+                        btn.disabled = false;
+                        btn.textContent = 'Supprimer';
+                    }
                 });
             });
         },
@@ -587,8 +617,14 @@
                     const id = btn.getAttribute('data-id');
                     btn.disabled = true;
                     btn.textContent = 'Suppression...';
-                    await repo.deleteTestimonial(id);
-                    await this.loadTestimonials();
+                    try {
+                        await repo.deleteTestimonial(id);
+                        await this.loadTestimonials();
+                    } catch (err) {
+                        console.error('[AdminDashboard] Erreur suppression témoignage:', err);
+                        btn.disabled = false;
+                        btn.textContent = 'Supprimer';
+                    }
                 });
             });
         },
@@ -658,8 +694,14 @@
                     const id = btn.getAttribute('data-id');
                     btn.disabled = true;
                     btn.textContent = 'Suppression...';
-                    await repo.deleteFaqItem(id);
-                    await this.loadFaq();
+                    try {
+                        await repo.deleteFaqItem(id);
+                        await this.loadFaq();
+                    } catch (err) {
+                        console.error('[AdminDashboard] Erreur suppression FAQ:', err);
+                        btn.disabled = false;
+                        btn.textContent = 'Supprimer';
+                    }
                 });
             });
         },
@@ -808,8 +850,14 @@
                     const id = btn.getAttribute('data-id');
                     btn.disabled = true;
                     btn.textContent = 'Suppression...';
-                    await repo.deletePartner(id);
-                    await this.loadPartners();
+                    try {
+                        await repo.deletePartner(id);
+                        await this.loadPartners();
+                    } catch (err) {
+                        console.error('[AdminDashboard] Erreur suppression partenaire:', err);
+                        btn.disabled = false;
+                        btn.textContent = 'Supprimer';
+                    }
                 });
             });
         },
@@ -880,8 +928,14 @@
                     const id = btn.getAttribute('data-id');
                     btn.disabled = true;
                     btn.textContent = 'Suppression...';
-                    await repo.deleteTimelineItem(id);
-                    await this.loadTimeline();
+                    try {
+                        await repo.deleteTimelineItem(id);
+                        await this.loadTimeline();
+                    } catch (err) {
+                        console.error('[AdminDashboard] Erreur suppression jalon timeline:', err);
+                        btn.disabled = false;
+                        btn.textContent = 'Supprimer';
+                    }
                 });
             });
         },
