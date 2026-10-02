@@ -1133,27 +1133,34 @@
             bannerData = DEFAULT_CONTENT.banner;
         }
 
-        if (bannerData) {
-            // Bannière 1 (Primaire)
-            const banner1 = banners[0];
-            if (banner1 && bannerData.imageUrl) {
-                const img1 = banner1.querySelector('img');
-                if (img1) {
-                    img1.src = bannerData.imageUrl;
-                    if (bannerData.alt) img1.alt = bannerData.alt;
-                }
-                const eyebrow1 = banner1.querySelector('.cine-banner-eyebrow');
-                if (eyebrow1 && bannerData.eyebrow) eyebrow1.textContent = bannerData.eyebrow;
-                const quote1 = banner1.querySelector('.cine-banner-quote');
-                if (quote1 && bannerData.quote) quote1.textContent = bannerData.quote;
-                const author1 = banner1.querySelector('.cine-banner-author');
-                if (author1 && bannerData.author) author1.textContent = bannerData.author;
-            }
+        if (!bannerData || !bannerData.imageUrl) {
+            banners.forEach(b => b.style.display = 'none');
+            return;
+        }
 
-            // Bannière 2 (Secondaire / Réassurance) si présente
-            const banner2 = banners[1];
+        // Bannière 1 (Primaire)
+        const banner1 = banners[0];
+        if (banner1) {
+            banner1.style.display = '';
+            const img1 = banner1.querySelector('img');
+            if (img1) {
+                img1.src = bannerData.imageUrl;
+                if (bannerData.alt) img1.alt = bannerData.alt;
+            }
+            const eyebrow1 = banner1.querySelector('.cine-banner-eyebrow');
+            if (eyebrow1 && bannerData.eyebrow) eyebrow1.textContent = bannerData.eyebrow;
+            const quote1 = banner1.querySelector('.cine-banner-quote');
+            if (quote1 && bannerData.quote) quote1.textContent = bannerData.quote;
+            const author1 = banner1.querySelector('.cine-banner-author');
+            if (author1 && bannerData.author) author1.textContent = bannerData.author;
+        }
+
+        // Bannière 2 (Secondaire / Réassurance) : SEULEMENT si explicitement configurée et pourvue d'une image
+        const banner2 = banners[1];
+        if (banner2) {
             const secondaryData = bannerData.secondary || null;
-            if (banner2 && secondaryData && secondaryData.imageUrl) {
+            if (secondaryData && secondaryData.imageUrl) {
+                banner2.style.display = '';
                 const img2 = banner2.querySelector('img');
                 if (img2) {
                     img2.src = secondaryData.imageUrl;
@@ -1165,6 +1172,8 @@
                 if (quote2 && secondaryData.quote) quote2.textContent = secondaryData.quote;
                 const author2 = banner2.querySelector('.cine-banner-author');
                 if (author2 && secondaryData.author) author2.textContent = secondaryData.author;
+            } else {
+                banner2.style.display = 'none';
             }
         }
     }
