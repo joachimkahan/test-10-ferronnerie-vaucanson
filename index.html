@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferronnerie d'Art Vaucanson & Fils | Forge Traditionnelle & Patrimoine Lyon</title>
+    <meta name="description" content="Atelier de Maîtres Ferronniers d'Art à Lyon : forge au feu, portails monumentaux, garde-corps débillardés, marquises d'exception et restauration Monuments Historiques.">
+
+    <!-- Google Fonts — Syne + Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Favicon & Identité Visuelle -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/public.css">
+
+    <!-- [AUTONOME_ONLY_START] -->
+    <!-- Firebase SDK (Firestore) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- [AUTONOME_ONLY_END] -->
+</head>
+<body>
+    <!-- ═══════════════════════════════════
+         NAVBAR
+    ═══════════════════════════════════ -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="#accueil" class="logo">Vaucanson & Fils</a>
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#apropos">L'Atelier</a></li>
+                <li><a href="#looks">Créations</a></li>
+                <li><a href="#glow-slider-section">Restauration</a></li>
+                <li><a href="#gallery">Portfolio</a></li>
+                <li><a href="#prestations">Prestations</a></li>
+                <li><a href="#temoignages">Avis</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#infos-pratiques">Accès</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions" style="display:flex; align-items:center; gap:10px;">
+                <button type="button" id="langToggle" class="lang-toggle-btn" aria-label="Changer de langue" style="display: none;">
+                    <span class="lang-text" id="langToggleText">EN</span>
+                </button>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══════════════════════════════════
+         HERO — Cinemagraph / Split Screen
+    ═══════════════════════════════════ -->
+    <header id="accueil" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <span class="hero-eyebrow">Atelier Fondé en 1982 · Lyon Val-de-Saône</span>
+                <h1>L'Acier Forgé au Feu & au Marteau,<br><em>du Patrimoine aux Lignes Contemporaines</em></h1>
+                <p class="hero-description">
+                    Depuis plus de 40 ans, notre atelier façonne le fer à chaud selon les règles séculaires de la forge manuelle : portails monumentaux rivetés, garde-corps d'escalier débillardés et restauration d'édifices classés.
+                </p>
+                <div class="hero-cta-group">
+                    <a href="#contact" class="btn-primary" id="hero-cta">Étudier votre projet d'ouvrage</a>
+                </div>
+            </div>
+
+            <div class="hero-media">
+                <img src="https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=1920&q=80"
+                     alt="Forgeage au marteau-pilon et enclume à la Ferronnerie Vaucanson"
+                     fetchpriority="high">
+            </div>
+        </div>
+
+        <div class="hero-overlay"></div>
+
+        <div class="hero-scroll-indicator">
+            <span>Découvrir</span>
+            <div class="scroll-line"></div>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════
+         TICKER BANNER (Bandeau Défilant Éditorial)
+    ═══════════════════════════════════ -->
+    <div class="ticker-banner" id="banderole-ticker" aria-hidden="true">
+        <div class="ticker-track">
+            <div class="ticker-content" id="ticker-content-primary">
+                <span>CHÊNE MASSIF DE FRANCE</span>
+                <span class="bullet">·</span>
+                <span>NOYER & FRÊNE D'ORIGINE CONTRÔLÉE</span>
+                <span class="bullet">·</span>
+                <span>ASSEMBLAGES TRADITIONNELS À TENONS</span>
+                <span class="bullet">·</span>
+                <span>ATELIER DE FABRICATION EN ÎLE-DE-FRANCE</span>
+                <span class="bullet">·</span>
+                <span>DEVIS CHIFFRÉ & DÉTAILLÉ SOUS 48H</span>
+                <span class="bullet">·</span>
+            </div>
+            <div class="ticker-content" id="ticker-content-secondary" aria-hidden="true">
+                <span>CHÊNE MASSIF DE FRANCE</span>
+                <span class="bullet">·</span>
+                <span>NOYER & FRÊNE D'ORIGINE CONTRÔLÉE</span>
+                <span class="bullet">·</span>
+                <span>ASSEMBLAGES TRADITIONNELS À TENONS</span>
+                <span class="bullet">·</span>
+                <span>ATELIER DE FABRICATION EN ÎLE-DE-FRANCE</span>
+                <span class="bullet">·</span>
+                <span>DEVIS CHIFFRÉ & DÉTAILLÉ SOUS 48H</span>
+                <span class="bullet">·</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         ABOUT — Split Screen
+    ═══════════════════════════════════ -->
+    <section id="apropos" class="section">
+        <div class="container about-container">
+            <div class="about-image reveal about-image-parallax">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80"
+                     alt="Présentation de l'atelier de menuiserie"
+                     loading="lazy"
+                     class="parallax-element"
+                     data-parallax-speed="0.08">
+            </div>
+            <div class="about-text reveal">
+                <span class="eyebrow">L'Atelier</span>
+                <h2>Quinze années de pratique,<br>au service de la belle matière</h2>
+                <p>Fondé en 2011, notre atelier réunit ébénistes et menuisiers formés aux techniques de restauration du patrimoine et à l'agencement contemporain.</p>
+
+                <p class="pull-quote">Le respect de l'ouvrage commence par la sélection des grumes et se prolonge dans la précision de chaque assemblage.</p>
+
+                <p>Nous travaillons exclusivement des essences locales issues de forêts gérées durablement, avec un débit rigoureux et des finitions huilées naturelles pour un résultat durable et irréprochable.</p>
+
+                <div class="about-signature" id="about-signature">Julien Marcault, Maître Artisan.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         TIMELINE / HISTORIQUE & PARCOURS (CAND-04 - Optionnel)
+    ═══════════════════════════════════ -->
+    <section id="parcours" class="section section-timeline" style="display: none;">
+        <div class="container">
+            <span class="eyebrow section-eyebrow" style="text-align:center;">Notre Histoire</span>
+            <h2 class="section-title">Parcours & Savoir-Faire</h2>
+            <div class="timeline-container" id="timeline-container">
+                <!-- Injecté dynamiquement par SectionRenderer -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         CINEMAGRAPH TRANSITION — BANNER 1
+    ═══════════════════════════════════ -->
+    <div class="cine-banner" id="banderole-transition-1">
+        <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1920&q=80"
+             alt="Visuel d'ambiance et savoir-faire"
+             loading="lazy">
+        <div class="cine-banner-overlay"></div>
+        <div class="cine-banner-content">
+            <span class="cine-banner-eyebrow">Excellence & Passion</span>
+            <p class="cine-banner-quote">« Allier l'exigence du geste artisanal à l'émotion d'un service d'exception. »</p>
+            <span class="cine-banner-author">Atelier Artisanal · Qualité & Authenticité</span>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         LOOKS SIGNATURE — Editorial (Optionnel)
+    ═══════════════════════════════════ -->
+    <section id="looks" class="section looks-section">
+        <div class="container">
+            <span class="eyebrow reveal" style="text-align:center;">Collection</span>
+            <h2 class="section-title reveal">Créations Signatures</h2>
+            <p class="section-subtitle reveal">Découvrez une sélection de nos créations et styles exclusifs.</p>
+
+            <!-- Editorial Tabs -->
+            <div class="looks-tabs reveal" id="looks-tabs" role="tablist">
+                <!-- Dynamically generated -->
+            </div>
+
+            <!-- Look Panels -->
+            <div class="looks-panels" id="looks-panels">
+                <p style="text-align:center; color:var(--color-text-muted, var(--texte-secondaire));">Chargement des looks...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         GALERIE PORTFOLIO (Dynamique)
+    ═══════════════════════════════════ -->
+    <section id="gallery" class="section gallery-section">
+        <div class="container">
+            <span class="eyebrow reveal" style="text-align:center;">Galerie</span>
+            <h2 class="section-title reveal">Nos Réalisations</h2>
+            <p class="section-subtitle reveal">Découvrez une sélection de nos projets et créations récentes.</p>
+            <div class="gallery-grid reveal-stagger" id="gallery-grid">
+                <div style="grid-column: 1/-1; text-align: center; color: var(--color-text-muted, var(--texte-secondaire));">Chargement de la galerie...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         GLOW SLIDER — Avant/Après
+    ═══════════════════════════════════ -->
+    <section class="section glow-slider-section" id="glow-slider-section">
+        <div class="container">
+            <span class="eyebrow reveal" style="text-align:center;">Comparateur</span>
+            <h2 class="section-title reveal">Avant & Après</h2>
+            <p class="section-subtitle reveal">Glissez le curseur pour comparer les résultats.</p>
+        </div>
+
+        <div class="container">
+            <!-- Dynamic sliders container -->
+            <div id="ba-sliders-container">
+                <p style="text-align:center; color:var(--color-text-muted, var(--texte-secondaire));">Chargement des transformations...</p>
+            </div>
+
+            <!-- Navigation dots for multiple sliders -->
+            <div class="ba-nav" id="ba-nav" style="display:none;">
+                <!-- Generated dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         MARQUES PARTENAIRES & PRODUITS D'EXCEPTION (Optionnel)
+    ═══════════════════════════════════ -->
+    <section id="partenaires" class="section-partners">
+        <div class="container">
+            <span class="eyebrow reveal" style="text-align:center;">Labels & Réseau</span>
+            <h2 class="partners-title reveal">Partenaires & Engagements</h2>
+            <div class="partners-grid reveal-stagger" id="partners-grid">
+                <!-- Injecté dynamiquement par SectionRenderer -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         MÉTHODE / PROCESSUS EN ÉTAPES (Optionnel)
+    ═══════════════════════════════════ -->
+    <section id="methode" class="section section-process">
+        <div class="container">
+            <span class="eyebrow section-eyebrow" style="text-align:center;">Notre approche</span>
+            <h2 class="section-title">Une méthode claire & éprouvée</h2>
+            <div class="process-grid" id="process-grid">
+                <!-- Injecté dynamiquement par SectionRenderer -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         PRESTATIONS
+    ═══════════════════════════════════ -->
+    <section id="prestations" class="section">
+        <div class="container">
+            <span class="eyebrow reveal" style="text-align:center;">Services</span>
+            <h2 class="section-title reveal">Prestations & Tarifs</h2>
+            <p class="section-subtitle reveal">Des services sur mesure pour sublimer chaque occasion</p>
+            <div class="services-grid reveal-stagger" id="services-grid">
+                <!-- Injecté dynamiquement par JS -->
+                <div style="grid-column: 1/-1; text-align: center; color: var(--color-text-muted, var(--texte-secondaire));">Chargement des prestations...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         TÉMOIGNAGES & AVIS CLIENTS (Optionnel)
+    ═══════════════════════════════════ -->
+    <section id="temoignages" class="section section-testimonials">
+        <div class="container">
+            <span class="eyebrow" style="text-align:center;">Retours d'Atelier</span>
+            <h2 class="section-title">Ce que disent nos clients</h2>
+            <div class="testimonials-grid" id="testimonials-grid">
+                <!-- Injecté dynamiquement par SectionRenderer -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         CINEMAGRAPH TRANSITION — BANNER 2 (Réassurance & Engagement)
+    ═══════════════════════════════════ -->
+    <div class="cine-banner" id="banderole-transition-2">
+        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1920&q=80"
+             alt="Matières d'exception et engagement qualité"
+             loading="lazy">
+        <div class="cine-banner-overlay"></div>
+        <div class="cine-banner-content">
+            <span class="cine-banner-eyebrow">Engagement & Confiance</span>
+            <p class="cine-banner-quote">« La garantie d'une relation humaine privilégiée et d'un travail soigné dans les moindres détails. »</p>
+            <span class="cine-banner-author">Transparence · Respect des Délais · Satisfaction Garantie</span>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         FOIRE AUX QUESTIONS (FAQ - Optionnel)
+    ═══════════════════════════════════ -->
+    <section id="faq" class="section section-faq">
+        <div class="container">
+            <span class="eyebrow" style="text-align:center;">Questions Fréquentes</span>
+            <h2 class="section-title">Tout ce que vous devez savoir</h2>
+            <div class="faq-accordion" id="faq-accordion">
+                <!-- Injecté dynamiquement par SectionRenderer -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         INFOS PRATIQUES, HORAIRES & ZONE (Optionnel)
+    ═══════════════════════════════════ -->
+    <section id="infos-pratiques" class="section section-practical-info">
+        <div class="container">
+            <span class="eyebrow" style="text-align:center;">Informations</span>
+            <h2 class="section-title">Disponibilités & Zone d'Action</h2>
+            
+            <div class="status-pill-container">
+                <div class="live-status-pill">
+                    <span class="status-pulse-dot"></span>
+                    <span class="status-text">Disponible pour prise de rendez-vous</span>
+                </div>
+            </div>
+
+            <div class="practical-info-grid">
+                <div class="practical-card hours-card">
+                    <h3 class="practical-card-title">
+                        <svg class="practical-icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        <span>Horaires d'Ouverture</span>
+                    </h3>
+                    <div class="hours-list" id="hours-list">
+                        <!-- Injecté dynamiquement -->
+                    </div>
+                </div>
+                <div class="practical-card area-card">
+                    <h3 class="practical-card-title">
+                        <svg class="practical-icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span>Zone d'Intervention</span>
+                    </h3>
+                    <div class="areas-badges" id="areas-badges">
+                        <!-- Injecté dynamiquement -->
+                    </div>
+                    <div class="direct-contact-box">
+                        <div class="contact-info-item">
+                            <svg class="contact-info-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <div class="contact-info-content">
+                                <span class="contact-info-label">Adresse :</span>
+                                <a id="info-address" class="contact-info-value" href="#contact">Sur rendez-vous</a>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <svg class="contact-info-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <div class="contact-info-content">
+                                <span class="contact-info-label">Téléphone direct :</span>
+                                <a id="info-phone" class="contact-info-value" href="#contact">Nous contacter</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         CONTACT
+    ═══════════════════════════════════ -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <span class="eyebrow reveal" style="text-align:center;">Contact & Études</span>
+            <h2 class="section-title reveal">Initier Votre Projet</h2>
+            <p class="section-subtitle reveal">Un projet sur mesure, une question technique ou une demande d'étude : parlons-en ensemble.</p>
+
+            <div class="contact-layout-split">
+                <!-- Colonne Gauche : Ancrage Réel & Engagements (40%) -->
+                <div class="contact-aside reveal">
+                    <div class="contact-card-info">
+                        <span class="contact-card-badge">Accueil & Visites</span>
+                        <h3>Atelier Marcault</h3>
+                        <p class="contact-card-desc">Nous vous accueillons à l'atelier pour échanger sur vos plans et vous présenter notre sélection d'essences de bois noble.</p>
+
+                        <div class="contact-details-list">
+                            <div class="contact-detail-item">
+                                <span class="contact-detail-label">Adresse de l'atelier</span>
+                                <span class="contact-detail-value">14 rue de l'Artisanat, 93500 Pantin</span>
+                            </div>
+                            <div class="contact-detail-item">
+                                <span class="contact-detail-label">Ligne directe</span>
+                                <a href="tel:+33140000000" class="contact-detail-value">+33 1 40 00 00 00</a>
+                            </div>
+                            <div class="contact-detail-item">
+                                <span class="contact-detail-label">Engagement de réactivité</span>
+                                <span class="contact-detail-value">Étude et devis chiffré sous 48h ouvrées</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-guarantee-pill">
+                            <svg class="check-icon-svg" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.5 8.5L6.5 11.5L12.5 4.5"/></svg>
+                            <span>Pose soignée sans sous-traitance</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Colonne Droite : Formulaire Épuré (60%) -->
+                <div class="contact-main reveal">
+                    <form id="contact-form" class="contact-form" action="https://formsubmit.co/EMAIL_DESTINATAIRE" method="POST" novalidate>
+                        <!-- Configurations FormSubmit & Antispam Honeypot -->
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="box">
+                        <input type="hidden" name="_subject" id="contact-subject" value="Nouveau message depuis votre site web !">
+                        <input type="hidden" name="_next" id="contact-next" value="">
+                        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+                        <div class="form-group">
+                            <label for="name">Nom complet</label>
+                            <input type="text" id="name" name="name" placeholder="Votre nom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Adresse Email</label>
+                            <input type="email" id="email" name="email" placeholder="votre@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Type de prestation</label>
+                            <select id="service" name="service" required>
+                                <option value="" disabled selected>Sélectionnez une prestation</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Votre projet</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Décrivez votre ouvrage, dimensions, essences souhaitées..." required></textarea>
+                        </div>
+                        <div class="form-rgpd-consent">
+                            <input type="checkbox" id="rgpd-consent" name="rgpd_consent" required>
+                            <label for="rgpd-consent">En cochant cette case, j'accepte que les informations saisies soient recueillies et traitées par notre entreprise afin de répondre à ma demande de contact et de devis, conformément à notre <a href="#" data-legal-tab="privacy">Politique de Confidentialité</a>.</label>
+                        </div>
+                        <button type="submit" class="btn-primary" id="contact-submit">Envoyer le message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         FOOTER
+    ═══════════════════════════════════ -->
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <h3 id="footer-site-name">Atelier Marcault</h3>
+                <p id="footer-site-tagline">Ébénisterie d'art, restauration du patrimoine & agencements sur mesure en bois noble.</p>
+                <div class="footer-meta-anchor" style="margin-top: 12px; font-size: 0.8rem; color: var(--color-text-muted); line-height: 1.6;">
+                    <span>Atelier : 14 rue de l'Artisanat, 93500 Pantin (sur rendez-vous)</span><br>
+                    <span>Bureau d'études : Paris 6e · SIRET 812 459 320 00024</span>
+                </div>
+            </div>
+
+            <!-- [AUTONOME_ONLY_START] -->
+            <div class="footer-links">
+                <a href="#" id="open-admin-login" class="admin-link">Espace Pro</a>
+            </div>
+            <!-- [AUTONOME_ONLY_END] -->
+
+            <div class="footer-legal-links">
+                <button type="button" class="legal-link-btn" data-legal-tab="mentions">Mentions Légales</button>
+                <span class="legal-sep">·</span>
+                <button type="button" class="legal-link-btn" data-legal-tab="privacy">Politique de Confidentialité</button>
+                <span class="legal-sep">·</span>
+                <button type="button" class="legal-link-btn" data-legal-tab="cgu">CGU & Prestations</button>
+                <span class="legal-sep">·</span>
+                <button type="button" class="legal-link-btn" onclick="window.openCookieSettings && window.openCookieSettings();">Gestion des cookies</button>
+                <span class="legal-sep">·</span>
+                <button type="button" class="legal-link-btn" data-legal-tab="accessibility">Accessibilité : Partiellement conforme</button>
+            </div>
+
+            <div class="footer-bottom" style="display: flex; flex-direction: column; gap: 6px; font-size: 0.8rem; color: var(--color-text-muted);">
+                <p id="footer-copyright">&copy; 2026 Atelier Marcault. Tous droits réservés. Réalisation Studio WebExpresso · v2.4.0-artisan.</p>
+                <p style="font-size: 0.74rem; opacity: 0.85;">Hébergement sécurisé haute performance en France (datacenter neutre en carbone).</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <div class="lightbox-content" id="lightbox-content"></div>
+    </div>
+
+    <!-- [AUTONOME_ONLY_START] -->
+    <!-- Admin Login Modal -->
+    <div id="admin-login-modal" class="lightbox">
+        <div class="lightbox-content" style="background: var(--color-surface, #fff); padding: 40px 28px; text-align: center; position: relative; max-width: 440px; flex-direction: column; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <span class="admin-modal-close" style="position:absolute; top: 16px; right: 20px; font-size: 1.5rem; cursor: pointer; color: var(--color-text-light, #777); line-height: 1;">&times;</span>
+            <h2 style="font-family: var(--font-heading, serif); font-size: 1.8rem; font-weight: 300; margin-bottom: 8px; color: var(--color-text, #222);">Accès Pro</h2>
+            <p style="margin-bottom: 24px; color: var(--color-text-light, #777); font-size: 0.9rem;">Veuillez entrer votre mot de passe pour accéder à l'espace d'administration.</p>
+            <form id="client-admin-login-form" onsubmit="event.preventDefault(); window.AppRoutes && window.AppRoutes.handleModalSubmit(event);" style="display: grid; gap: 15px; width: 100%; text-align: left;">
+                <div class="form-group" style="margin: 0;">
+                    <div style="display: flex; gap: 8px;">
+                        <input type="password" id="client-admin-password" placeholder="Mot de passe" required autocomplete="current-password" style="flex: 1; padding: 12px 14px; border: 1px solid rgba(0,0,0,0.15); border-radius: 8px; font-size: 1rem;">
+                        <button type="button" id="client-toggle-password" onclick="var p=document.getElementById('client-admin-password'); if(p){p.type=(p.type==='password'?'text':'password'); this.textContent=(p.type==='text'?'Masquer':'Afficher');}" style="padding: 0 14px; background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.15); border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-family: inherit; font-weight: 500; white-space: nowrap;">Afficher</button>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; padding: 12px; font-size: 1rem; border-radius: 8px; justify-content: center;">Se connecter</button>
+            </form>
+        </div>
+    </div>
+    <!-- [AUTONOME_ONLY_END] -->
+
+    <!-- Modale Étude de Cas / Case Study (CAND-06) -->
+    <div id="case-study-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-header-texts">
+                    <span class="modal-tag" id="modal-cs-badge"></span>
+                    <h3 class="modal-title" id="modal-cs-title"></h3>
+                    <p class="modal-subtitle" id="modal-cs-subtitle"></p>
+                </div>
+                <button type="button" class="modal-close" id="modal-cs-close" aria-label="Fermer la modale">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-specs" id="modal-cs-specs"></div>
+                <div class="modal-description" id="modal-cs-description"></div>
+                <div class="modal-gallery" id="modal-cs-gallery"></div>
+                <div class="modal-actions" id="modal-cs-actions"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         BANDEAU DE CONSENTEMENT COOKIES (RGPD / CNIL)
+    ═══════════════════════════════════ -->
+    <aside id="cookie-consent-banner" class="cookie-banner" role="dialog" aria-modal="false" aria-label="Gestion des cookies et confidentialité" aria-hidden="true">
+        <div class="cookie-banner-content">
+            <h3 class="cookie-banner-title">Respect de votre vie privée</h3>
+            <p class="cookie-banner-text">
+                Nous utilisons des cookies techniques nécessaires au bon fonctionnement de notre site. Avec votre accord, nous pouvons également déposer des cookies d'analyse d'audience pour mesurer la fréquentation et améliorer votre expérience. Vous pouvez accepter, refuser ou personnaliser vos choix à tout moment. Consultez notre <a href="#" data-legal-tab="privacy">Politique de Confidentialité</a>.
+            </p>
+        </div>
+        <div class="cookie-banner-actions">
+            <button type="button" class="cookie-btn cookie-btn-tertiary" id="cookie-btn-refuse">Tout refuser</button>
+            <button type="button" class="cookie-btn cookie-btn-secondary" id="cookie-btn-customize">Personnaliser</button>
+            <button type="button" class="cookie-btn cookie-btn-primary" id="cookie-btn-accept">Tout accepter</button>
+        </div>
+    </aside>
+
+    <!-- ═══════════════════════════════════
+         MODALE DE RÉGLAGE DES COOKIES
+    ═══════════════════════════════════ -->
+    <div id="cookie-settings-modal" class="cookie-settings-modal" role="dialog" aria-modal="true" aria-label="Préférences des cookies" aria-hidden="true">
+        <div class="cookie-settings-content">
+            <div class="cookie-settings-header">
+                <h3>Préférences relatives aux cookies</h3>
+                <button type="button" class="legal-modal-close" id="cookie-settings-close" aria-label="Fermer la fenêtre des cookies">&times;</button>
+            </div>
+            <div class="cookie-settings-body">
+                <div class="cookie-category">
+                    <div class="cookie-cat-info">
+                        <h4>Cookies Techniques & Essentiels</h4>
+                        <p>Indispensables à la navigation, à la sécurité et à la mémorisation de vos consentements légaux. Ils ne peuvent pas être désactivés.</p>
+                    </div>
+                    <label class="cookie-switch">
+                        <input type="checkbox" checked disabled aria-label="Cookies techniques toujours activés">
+                        <span class="cookie-slider"></span>
+                    </label>
+                </div>
+                <div class="cookie-category">
+                    <div class="cookie-cat-info">
+                        <h4>Mesure d'Audience & Statistiques</h4>
+                        <p>Permettent d'analyser anonymement le volume des visites afin d'optimiser les performances de notre site.</p>
+                    </div>
+                    <label class="cookie-switch">
+                        <input type="checkbox" id="cookie-opt-analytics" aria-label="Autoriser la mesure d'audience">
+                        <span class="cookie-slider"></span>
+                    </label>
+                </div>
+                <div class="cookie-category">
+                    <div class="cookie-cat-info">
+                        <h4>Contenus Interactifs & Multimédia</h4>
+                        <p>Nécessaires à l'affichage de vidéos intégrées, typographies externes ou cartes interactives enrichies.</p>
+                    </div>
+                    <label class="cookie-switch">
+                        <input type="checkbox" id="cookie-opt-multimedia" aria-label="Autoriser les contenus multimédias enrichis">
+                        <span class="cookie-slider"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="cookie-settings-footer">
+                <button type="button" class="cookie-btn cookie-btn-primary" id="cookie-save-settings">Enregistrer mes choix</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         MODALE JURIDIQUE MULTI-ONGLETS (LCEN / RGPD / CGU / RGAA)
+    ═══════════════════════════════════ -->
+    <div id="legal-modal" class="legal-modal" role="dialog" aria-modal="true" aria-label="Informations Légales & Conformité" aria-hidden="true">
+        <div class="legal-modal-card">
+            <div class="legal-modal-header">
+                <div class="legal-modal-title-box">
+                    <h3>Conformité Juridique & Renseignements Légaux</h3>
+                </div>
+                <button type="button" class="legal-modal-close" onclick="window.closeLegalModal && window.closeLegalModal();" aria-label="Fermer la fenêtre juridique">&times;</button>
+            </div>
+            <div class="legal-modal-tabs" role="tablist">
+                <button type="button" class="legal-tab-btn active" data-tab="mentions" role="tab" aria-selected="true">Mentions Légales</button>
+                <button type="button" class="legal-tab-btn" data-tab="privacy" role="tab" aria-selected="false">Confidentialité & RGPD</button>
+                <button type="button" class="legal-tab-btn" data-tab="cgu" role="tab" aria-selected="false">CGU & Prestations</button>
+                <button type="button" class="legal-tab-btn" data-tab="accessibility" role="tab" aria-selected="false">Accessibilité</button>
+            </div>
+            <div class="legal-modal-body">
+                <!-- Panneau 1 : Mentions Légales LCEN -->
+                <div id="legal-panel-mentions" class="legal-panel active" role="tabpanel">
+                    <h4>1. Éditeur du Site Web</h4>
+                    <div id="legal-info-publisher">
+                        <!-- Rempli dynamiquement par legal-manager.js -->
+                    </div>
+                    <h4>2. Hébergement Technique du Site</h4>
+                    <div id="legal-info-host">
+                        <!-- Rempli dynamiquement par legal-manager.js -->
+                    </div>
+                    <h4>3. Propriété Intellectuelle</h4>
+                    <p>L'ensemble des contenus figurant sur ce site (textes, photographies des créations et réalisations, logos, éléments graphiques) est protégé par le droit d'auteur et la législation française et internationale sur la propriété intellectuelle. Toute reproduction, représentation, modification ou diffusion totale ou partielle, sans l'accord écrit préalable, est strictement interdite.</p>
+                    <h4>4. Règlement des Litiges & Médiation de la Consommation</h4>
+                    <div id="legal-info-mediator">
+                        <!-- Rempli dynamiquement par legal-manager.js -->
+                    </div>
+                </div>
+
+                <!-- Panneau 2 : Confidentialité & RGPD -->
+                <div id="legal-panel-privacy" class="legal-panel" role="tabpanel">
+                    <h4>Politique de Protection des Données Personnelles</h4>
+                    <div id="legal-info-privacy">
+                        <!-- Rempli dynamiquement par legal-manager.js -->
+                    </div>
+                    <h4>Gestion des Cookies et Traceurs</h4>
+                    <p>Ce site utilise des traceurs techniques indispensables à son bon fonctionnement ainsi qu'à la prise en compte de vos préférences. Vous pouvez modifier vos autorisations à tout instant en cliquant sur le lien <a href="#" onclick="window.closeLegalModal(); window.openCookieSettings(); return false;">Gestion des cookies</a> situé dans le pied de page.</p>
+                </div>
+
+                <!-- Panneau 3 : CGU & Conditions Générales de Vente -->
+                <div id="legal-panel-cgu" class="legal-panel" role="tabpanel">
+                    <h4>1. Objet & Champ d'Application</h4>
+                    <p>Les présentes Conditions Générales régissent l'accès au site et définissent le cadre contractuel applicable aux demandes d'études, prestations et créations sur mesure.</p>
+                    <h4>2. Devis, Commandes & Acomptes</h4>
+                    <p>Toute prestation personnalisée ou étude sur mesure fait l'objet d'un devis préalable écrit, détaillé et chiffré. L'acceptation du devis devient ferme à réception du bon pour accord signé, accompagné du versement de l'acompte conventionnel.</p>
+                    <h4>3. Droit de Rétractation & Biens Confectionnés sur Mesure</h4>
+                    <p>Conformément à l'article L.221-28 3° du Code de la consommation, le droit légal de rétractation de quatorze (14) jours ne peut être exercé pour les contrats de fourniture de biens confectionnés selon les spécifications précises du consommateur ou nettement personnalisés (créations sur mesure, agencements sur plan, finitions exclusives).</p>
+                    <h4>4. Responsabilité & Garantie</h4>
+                    <p>Nous apportons tout le soin et la rigueur de l'artisanat d'art à l'exécution de nos prestations, conformément aux règles de l'art et aux garanties légales applicables.</p>
+                </div>
+
+                <!-- Panneau 4 : Accessibilité RGAA -->
+                <div id="legal-panel-accessibility" class="legal-panel" role="tabpanel">
+                    <h4>Déclaration d'Accessibilité Numérique</h4>
+                    <div id="legal-info-accessibility">
+                        <!-- Rempli dynamiquement par legal-manager.js -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast Flottante (CAND-09) -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <!-- Barre d'Action Flottante Mobile (Action Bar 24/7 & Statut Live) -->
+    <aside id="action-bar-mobile" class="action-bar-mobile" style="display: none;" aria-label="Action rapide mobile"></aside>
+
+    <!-- Scripts Socle Commun (Configurations & Contenu) -->
+    <script src="js/theme-config.js?v=1.0.2"></script>
+    <script src="js/site-config.js?v=1.0.2"></script>
+    <script src="js/feature-config.js?v=1.0.2"></script>
+    <script src="js/default-content.js?v=1.0.2"></script>
+    <script src="js/content-schema.js?v=1.0.2"></script>
+
+    <!-- [AUTONOME_ONLY_START] -->
+    <script src="js/integrations/firebase/firebase-client.js?v=1.0.2"></script>
+    <script src="js/integrations/firebase/media-repository.js?v=1.0.2"></script>
+    <script src="js/integrations/firebase/content-repository.js?v=1.0.2"></script>
+    <!-- [AUTONOME_ONLY_END] -->
+
+    <!-- Intégration Contact Isolée (Validation, Service, Contrôleur) -->
+    <script src="js/integrations/contact/contact-validation.js?v=1.0.2"></script>
+    <script src="js/integrations/contact/contact-service.js?v=1.0.2"></script>
+    <script src="js/integrations/contact/contact-controller.js?v=1.0.2"></script>
+
+    <!-- Gestionnaire Juridique & Conformité RGPD / Cookies -->
+    <script src="js/legal-manager.js?v=1.0.2"></script>
+
+    <!-- Adaptateur universel, Routage & Rendu des sections -->
+    <script src="js/content-adapter.js?v=1.0.2"></script>
+    <script src="js/routes.js?v=1.0.2"></script>
+    <script src="js/section-renderer.js?v=1.0.2"></script>
+    <script src="js/app.js?v=1.0.2"></script>
+</body>
+</html>
+

@@ -1,0 +1,48 @@
+rules_version = '2';
+
+/**
+ * FIRESTORE.RULES — Règles de Sécurité Google Cloud Firestore
+ * ============================================================
+ * [PROTECTED / AUTONOME_ONLY] Sécurisation de la base de données client.
+ *
+ * Rôle :
+ * - Permettre la LECTURE PUBLIQUE de toutes les collections du site (visiteurs)
+ * - Restreindre l'ÉCRITURE (création, modification, suppression) UNIQUEMENT
+ *   aux utilisateurs authentifiés via Firebase Auth (Espace Pro / Admin)
+ * - Empêcher toute tentative d'injection, de vandalisme ou de purge
+ *   non autorisée depuis la console DevTools d'un navigateur
+ *
+ * Déploiement :
+ * Copier-coller ce contenu directement dans la Console Firebase :
+ * Console Firebase > Firestore Database > Règles (Rules) > Publier
+ * ============================================================
+ */
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Helper d'Authentification ───────────────────────────────────
+    // Vérifie que la requête provient d'un compte authentifié avec Firebase Auth
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // ── 1. Collections du CMS WebExpress ────────────────────────────
+    // Collections : portfolio, looks_signature, before_after, prestations,
+    //               timeline, partners, process, testimonials, faq, practical_info
+    match /{collectionName}/{docId} {
+      // 1.1 LECTURE PUBLIQUE : Tout visiteur peut charger les contenus du site
+      allow read: if true;
+
+      // 1.2 ÉCRITURE SÉCURISÉE : Seul l'administrateur connecté peut créer,
+      //     modifier ou supprimer des contenus
+      allow create, update, delete: if isAuthenticated();
+    }
+
+    // ── 2. Règle Globale de Verrouillage par Défaut ─────────────────
+    match /{document=**} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+  }
+}

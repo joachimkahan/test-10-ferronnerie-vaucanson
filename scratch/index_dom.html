@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr" style="--color-bg: #FAF7F2; --blanc-art: #FAF7F2; --color-surface-warm: #E8D5C0; --champagne: #E8D5C0; --color-accent: #D4A898; --terracotta-pale: #D4A898; --color-primary: #C9A96E; --or-discret: #C9A96E; --color-text-main: #1C1916; --encre: #1C1916; --color-text-muted: #8C7B72; --gris-pierre: #8C7B72; --or-glow: rgba(201, 169, 110, 0.12); --encre-light: rgba(28, 25, 22, 0.06); --font-display: 'Cormorant Garamond', serif; --font-heading: 'Cormorant Garamond', serif; --font-body: 'Lato', sans-serif; --container-max: 1200px;"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier &amp; Créations | Excellence &amp; Savoir-Faire</title>
+    <meta name="description" content="Services sur-mesure et accompagnement d'exception pour vos projets. Découvrez nos réalisations et contactez-nous.">
+
+    <!-- Google Fonts — Cormorant Garamond + Lato -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&amp;family=Lato:wght@300;400&amp;display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/public.css">
+
+    <!-- [AUTONOME_ONLY_START] -->
+    <!-- Firebase SDK (Firestore) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- [AUTONOME_ONLY_END] -->
+</head>
+<body>
+    <!-- ═══════════════════════════════════
+         NAVBAR
+    ═══════════════════════════════════ -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="#accueil" class="logo">Accueil</a>
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#apropos">À propos</a></li>
+                <li><a href="#methode">Méthode</a></li>
+                <li style="display: none;"><a href="#parcours">Parcours</a></li>
+                <li><a href="#looks">Portfolio</a></li>
+                <li><a href="#prestations">Prestations</a></li>
+                <li><a href="#temoignages">Avis</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#infos-pratiques">Infos Pratiques</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions" style="display:flex; align-items:center; gap:10px;">
+                <button type="button" id="langToggle" class="lang-toggle-btn" aria-label="Changer de langue" style="display: none;">
+                    <span class="lang-text" id="langToggleText">EN</span>
+                </button>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══════════════════════════════════
+         HERO — Cinemagraph / Split Screen
+    ═══════════════════════════════════ -->
+    <header id="accueil" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <span class="hero-eyebrow">Excellence &amp; Savoir-Faire · Paris</span>
+                <h1>L'Exigence et la Passion<br><em>au service de vos projets</em></h1>
+                <p class="hero-description">Prestations sur-mesure et accompagnement de haute volée. Une approche rigoureuse pour sublimer vos exigences.</p>
+                <div class="hero-cta-group">
+                    <a href="#contact" class="btn-primary" id="hero-cta">Nous contacter</a>
+                </div>
+            </div>
+
+            <div class="hero-media">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&amp;fit=crop&amp;w=1920&amp;q=80" alt="Excellence &amp; Savoir-Faire · Paris" fetchpriority="high">
+            </div>
+        </div>
+
+        <div class="hero-overlay"></div>
+
+        <div class="hero-scroll-indicator">
+            <span>Découvrir</span>
+            <div class="scroll-line"></div>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════
+         TICKER BANNER (Bandeau Défilant Éditorial)
+    ═══════════════════════════════════ -->
+    <div class="ticker-banner" id="banderole-ticker" aria-hidden="true">
+        <div class="ticker-track">
+                    <div class="ticker-content" id="ticker-content-primary"><span>Savoir-Faire d'Exception</span><span class="bullet">·</span><span>Créations Sur-Mesure</span><span class="bullet">·</span><span>Matières Nobles &amp; Naturelles</span><span class="bullet">·</span><span>Atelier Artisanal Français</span><span class="bullet">·</span><span>Accompagnement Personnalisé</span><span class="bullet">·</span></div>
+                    <div class="ticker-content" id="ticker-content-secondary" aria-hidden="true"><span>Savoir-Faire d'Exception</span><span class="bullet">·</span><span>Créations Sur-Mesure</span><span class="bullet">·</span><span>Matières Nobles &amp; Naturelles</span><span class="bullet">·</span><span>Atelier Artisanal Français</span><span class="bullet">·</span><span>Accompagnement Personnalisé</span><span class="bullet">·</span></div>
+                </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         ABOUT — Split Screen
+    ═══════════════════════════════════ -->
+    <section id="apropos" class="section">
+        <div class="container about-container">
+            <div class="about-image reveal about-image-parallax">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="À propos" loading="lazy" class="parallax-element" data-parallax-speed="0.08">
+            </div>
+            <div class="about-text reveal">
+                <span class="eyebrow">À propos</span>
+                <h2>Une tradition d'exigence,<br>une vision d'avenir</h2>
+                <p>Professionnels engagés et passionnés par notre métier. Notre approche est au service d'une exigence continue de qualité, de précision et de satisfaction client.</p>
+
+                <p class="pull-quote">La qualité sans compromis et l'écoute attentive au service de chacun de vos projets.</p>
+
+                <p>Chaque réalisation est pensée sur-mesure avec des méthodes rigoureuses et des matériaux sélectionnés avec soin — pour un résultat durable et irréprochable.</p>
+
+                <div class="about-signature" id="about-signature">L'Équipe Fondatrice.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         TIMELINE / HISTORIQUE & PARCOURS (CAND-04 - Optionnel)
+    ═══════════════════════════════════ -->
+    <section id="parcours" class="section section-timeline" style="display: none;">
+        <div class="container">
+            <span class="eyebrow section-eyebrow" style="text-align:center;">Notre Histoire</span>
+            <h2 class="section-title">Parcours &amp; Savoir-Faire</h2>
+            <div class="timeline-container" id="timeline-container">
+                <!-- Injecté dynamiquement par SectionRenderer -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         CINEMAGRAPH TRANSITION — BANNER 1
+    ═══════════════════════════════════ -->
+    <div class="cine-banner" id="banderole-transition-1">
+        <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&amp;fit=crop&amp;w=1920&amp;q=80" alt="Visuel d'ambiance et savoir-faire" loading="lazy">
+        <div class="cine-banner-overlay"></div>
+        <div class="cine-banner-content">
+            <span class="cine-banner-eyebrow">Excellence &amp; Passion</span>
+            <p class="cine-banner-quote">« Allier l'exigence du geste artisanal à l'émotion d'un service d'exception. »</p>
+            <span class="cine-banner-author">Atelier Artisanal · Qualité &amp; Authenticité</span>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         LOOKS SIGNATURE — Editorial (Optionnel)
+    ═══════════════════════════════════ -->
+    <section id="looks" class="section looks-section">
+        <div class="container">
+            <span class="eyebrow reveal" style="text-align:center;">Collection</span>
+            <h2 class="section-title reveal">Looks Signature</h2>
+            <p class="section-subtitle reveal">Découvrez une sélection de nos créations et styles exclusifs.</p>
+
+            <!-- Editorial Tabs -->
+            <div class="looks-tabs reveal" id="looks-tabs" role="tablist"><button class="looks-tab active" data-tab="creation-01" role="tab" aria-selected="true">Édition Limitée</button><button class="looks-tab " data-tab="creation-02" role="tab" aria-selected="false">Contemporain</button></div>
+
+            <!-- Look Panels -->
+            <div class="looks-panels" id="looks-panels">
+                <div class="look-panel active" data-panel="creation-01" role="tabpanel">
+                    <div class="look-card">
+                        <img class="look-hero-image" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Collection Prestige &amp; Lignes Pures" loading="lazy">
+                        <span class="look-card-eyebrow">Sélection N°01 — Édition Limitée</span>
+                        <h2>Collection Prestige &amp; Lignes Pures</h2>
+                        <p class="look-card-description">Une conception architecturale et fluide, associant matériaux nobles et maîtrise technique d'exception.</p>
+                        <div class="look-detail-grid"><img src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Détail 1" loading="lazy"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Détail 2" loading="lazy"></div>
+                        <div class="look-tags"><span class="look-tag">Finitions d'exception</span><span class="look-tag">Matériaux nobles</span><span class="look-tag">Précision</span><span class="look-tag">Sur-mesure</span></div>
+                    </div>
+                </div>
+                <div class="look-panel " data-panel="creation-02" role="tabpanel">
+                    <div class="look-card">
+                        <img class="look-hero-image" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Épure Moderne &amp; Volumes Lumineux" loading="lazy">
+                        <span class="look-card-eyebrow">Sélection N°02 — Contemporain</span>
+                        <h2>Épure Moderne &amp; Volumes Lumineux</h2>
+                        <p class="look-card-description">Un jeu harmonieux d'ombres et de lumière, créant des espaces épurés et intemporels.</p>
+                        <div class="look-detail-grid"><img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Détail 1" loading="lazy"><img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Détail 2" loading="lazy"></div>
+                        <div class="look-tags"><span class="look-tag">Design intemporel</span><span class="look-tag">Clarté</span><span class="look-tag">Harmonie</span><span class="look-tag">Durabilité</span></div>
+                    </div>
+                </div></div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         GALERIE PORTFOLIO (Dynamique)
+    ═══════════════════════════════════ -->
+    <section id="gallery" class="section gallery-section">
+        <div class="container">
+            <span class="eyebrow reveal" style="text-align:center;">Galerie</span>
+            <h2 class="section-title reveal">Nos Réalisations</h2>
+            <p class="section-subtitle reveal">Découvrez une sélection de nos projets et créations récentes.</p>
+            <div class="gallery-grid reveal-stagger" id="gallery-grid">
+            <div class="gallery-item-card classic-card" style="opacity:1; transform:translateY(0); transition: opacity 0.6s 0s ease, transform 0.6s 0s var(--ease-smooth)" onclick="window.App?.openCaseStudyModal('1')">
+                
+                <div class="gallery-img-container">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Harmonie des Matières &amp; Lumière" loading="lazy">
+                    
+                <div class="gallery-badge-floating"><span class="portfolio-badge">Projet Phare</span></div>
+                </div>
+                <div class="gallery-card-content">
+                    <h3 class="gallery-card-title">Harmonie des Matières &amp; Lumière</h3>
+                    
+                    <div class="portfolio-tags"></div>
+                    <div class="gallery-card-actions"><button type="button" class="btn-case-study" onclick="event.stopPropagation(); window.App?.openCaseStudyModal('1');"><span>Étude de cas</span></button><a href="documents/fiche-projet-01.pdf" target="_blank" rel="noopener noreferrer" download="Fiche Technique (PDF)" class="btn-doc-download" onclick="event.stopPropagation();"><span>Fiche Technique (PDF)</span></a></div>
+                </div>
+            </div>
+            <div class="gallery-item-card classic-card" style="opacity:1; transform:translateY(0); transition: opacity 0.6s 0.1s ease, transform 0.6s 0.1s var(--ease-smooth)" onclick="openLightbox('https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&amp;fit=crop&amp;w=800&amp;q=80', 'image')">
+                
+                <div class="gallery-img-container">
+                    <img src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Précision des Détails &amp; Assemblage" loading="lazy">
+                    
+                </div>
+                <div class="gallery-card-content">
+                    <h3 class="gallery-card-title">Précision des Détails &amp; Assemblage</h3>
+                    
+                    <div class="portfolio-tags"></div>
+                    
+                </div>
+            </div>
+            <div class="gallery-item-card classic-card" style="opacity:1; transform:translateY(0); transition: opacity 0.6s 0.2s ease, transform 0.6s 0.2s var(--ease-smooth)" onclick="openLightbox('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=800&amp;q=80', 'image')">
+                
+                <div class="gallery-img-container">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Volume &amp; Espace Restructuré" loading="lazy">
+                    
+                </div>
+                <div class="gallery-card-content">
+                    <h3 class="gallery-card-title">Volume &amp; Espace Restructuré</h3>
+                    
+                    <div class="portfolio-tags"></div>
+                    
+                </div>
+            </div></div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         GLOW SLIDER — Avant/Après
+    ═══════════════════════════════════ -->
+    <section class="section glow-slider-section" id="glow-slider-section">
+        <div class="container">
+            <span class="eyebrow reveal" style="text-align:center;">Comparateur</span>
+            <h2 class="section-title reveal">Avant &amp; Après</h2>
+            <p class="section-subtitle reveal">Glissez le curseur pour comparer les résultats.</p>
+        </div>
+
+        <div class="container">
+            <!-- Dynamic sliders container -->
+            <div id="ba-sliders-container">
+            <div class="ba-slide active" data-ba-index="0">
+                <div class="ba-slide-title">Transformation Complète &amp; Rénovation d'Exception</div>
+                <div class="glow-slider-wrapper" data-slider-id="0">
+                    <div class="glow-slider-before">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Avant — Transformation Complète &amp; Rénovation d'Exception" loading="lazy">
+                    </div>
+                    <div class="glow-slider-after" data-after-id="0" style="clip-path: inset(0px 50% 0px 0px);">
+                        <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Après — Transformation Complète &amp; Rénovation d'Exception" loading="lazy">
+                    </div>
+                    <div class="glow-slider-handle" data-handle-id="0" style="left: 50%;">
+                        <div class="glow-slider-handle-knob"></div>
+                    </div>
+                    <span class="glow-slider-label left">Avant</span>
+                    <span class="glow-slider-label right">Après</span>
+                </div>
+            </div>
+        </div>
+
+            <!-- Navigation dots for multiple sliders -->
+            <div class="ba-nav" id="ba-nav" style="display:none;">
+                <!-- Generated dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         MARQUES PARTENAIRES & PRODUITS D'EXCEPTION (Optionnel)
+    ═══════════════════════════════════ -->
+    <section id="partenaires" class="section-partners">
+        <div class="container">
+            <span class="eyebrow reveal" style="text-align:center;">Produits d'Excellence</span>
+            <h2 class="partners-title reveal">Nos Marques Partenaires</h2>
+            <div class="partners-grid brand-showcase-grid reveal-stagger" id="partners-grid">
+                    <div class="partner-item partner-logo">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&amp;fit=crop&amp;w=200&amp;q=80" alt="Excellence &amp; Qualité 2026" loading="lazy">
+                    </div>
+                    <div class="partner-item partner-logo">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&amp;fit=crop&amp;w=200&amp;q=80" alt="Artisanat Français Agréé" loading="lazy">
+                    </div></div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         MÉTHODE / PROCESSUS EN ÉTAPES (Optionnel)
+    ═══════════════════════════════════ -->
+    <section id="methode" class="section section-process">
+        <div class="container">
+            <span class="eyebrow section-eyebrow" style="text-align:center;">Notre Méthode</span>
+            <h2 class="section-title">Un accompagnement clair,<br><em>en 4 étapes maîtrisées</em></h2>
+            <div class="process-grid" id="process-grid">
+                <div class="process-card">
+                    <div class="process-number">01</div>
+                    <h3 class="process-title">Consultation Initiale</h3>
+                    <p class="process-desc">Échange approfondi pour cerner précisément vos objectifs et vos exigences.</p>
+                </div>
+            
+                <div class="process-card">
+                    <div class="process-number">02</div>
+                    <h3 class="process-title">Proposition Sur-Mesure</h3>
+                    <p class="process-desc">Élaboration d'un plan d'action détaillé, chiffré et transparent.</p>
+                </div>
+            
+                <div class="process-card">
+                    <div class="process-number">03</div>
+                    <h3 class="process-title">Réalisation &amp; Suivi</h3>
+                    <p class="process-desc">Exécution rigoureuse avec points d'étape réguliers.</p>
+                </div>
+            
+                <div class="process-card">
+                    <div class="process-number">04</div>
+                    <h3 class="process-title">Livraison &amp; Garantie</h3>
+                    <p class="process-desc">Vérification finale et remise de l'ensemble des livrables.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         PRESTATIONS
+    ═══════════════════════════════════ -->
+    <section id="prestations" class="section">
+        <div class="container">
+            <span class="eyebrow reveal" style="text-align:center;">Services</span>
+            <h2 class="section-title reveal">Prestations &amp; Tarifs</h2>
+            <p class="section-subtitle reveal">Des services sur mesure pour sublimer chaque occasion</p>
+            <div class="services-grid reveal-stagger" id="services-grid">
+            <div class="service-card  " style="opacity:1; transform:translateY(0); transition: opacity 0.6s 0s ease, transform 0.6s 0s var(--ease-smooth)">
+                
+                <div class="service-icon">✨</div>
+                <h3 class="service-name">Diagnostic &amp; Étude Préalable</h3>
+                <p class="service-desc">Analyse approfondie de votre projet, relevé technique sur site et préconisations sur-mesure.</p>
+                
+                    <div class="pricing-box">
+                        <div class="price-main">Dès 190€</div>
+                        
+                    </div>
+                
+                
+                <a href="#contact" class="btn-primary btn-pricing">
+                    Réserver une séance
+                </a>
+            </div>
+            <div class="service-card  " style="opacity:1; transform:translateY(0); transition: opacity 0.6s 0.1s ease, transform 0.6s 0.1s var(--ease-smooth)">
+                
+                <div class="service-icon">✨</div>
+                <h3 class="service-name">Réalisation Complète Clé en Main</h3>
+                <p class="service-desc">Prise en charge intégrale de l'ouvrage, sélection rigoureuse des matériaux et suivi de chantier dédié.</p>
+                
+                    <div class="pricing-box">
+                        <div class="price-main">Sur Devis</div>
+                        
+                    </div>
+                
+                
+                <a href="#contact" class="btn-primary btn-pricing">
+                    Réserver une séance
+                </a>
+            </div>
+            <div class="service-card  " style="opacity:1; transform:translateY(0); transition: opacity 0.6s 0.2s ease, transform 0.6s 0.2s var(--ease-smooth)">
+                
+                <div class="service-icon">✨</div>
+                <h3 class="service-name">Création Sur-Mesure &amp; Conseil Exclusif</h3>
+                <p class="service-desc">Conception personnalisée, finitions d'artisanat d'art et disponibilité prioritaire.</p>
+                
+                    <div class="pricing-box">
+                        <div class="price-main">Sur Mesure</div>
+                        
+                    </div>
+                
+                
+                <a href="#contact" class="btn-primary btn-pricing">
+                    Réserver une séance
+                </a>
+            </div></div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         TÉMOIGNAGES & AVIS CLIENTS (Optionnel)
+    ═══════════════════════════════════ -->
+    <section id="temoignages" class="section section-testimonials">
+        <div class="container">
+            <span class="eyebrow" style="text-align:center;">Avis Vérifiés</span>
+            <h2 class="section-title">Ce que disent nos clients</h2>
+            <div class="testimonials-grid reveal-stagger" id="testimonials-grid">
+                <div class="testimonial-card reveal" style="animation-delay:0s">
+                    <div class="testimonial-header">
+                        <div class="stars-rating">★★★★★</div>
+                        
+                    </div>
+                    <div class="testimonial-quote">“”</div>
+                    <div class="testimonial-author-box">
+                        <div class="author-avatar">C&amp;</div>
+                        <div class="author-info">
+                            <div class="author-name" style="font-weight:600; color:var(--texte-principal, var(--color-text-main));">Claire &amp; Vincent D.</div>
+                            <div class="author-role" style="font-size:0.85rem; color:var(--color-text-muted, var(--texte-secondaire));">Projet Clé en Main</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal" style="animation-delay:0.1s">
+                    <div class="testimonial-header">
+                        <div class="stars-rating">★★★★★</div>
+                        
+                    </div>
+                    <div class="testimonial-quote">“”</div>
+                    <div class="testimonial-author-box">
+                        <div class="author-avatar">AB</div>
+                        <div class="author-info">
+                            <div class="author-name" style="font-weight:600; color:var(--texte-principal, var(--color-text-main));">Alexandre B.</div>
+                            <div class="author-role" style="font-size:0.85rem; color:var(--color-text-muted, var(--texte-secondaire));">Direction de Projet</div>
+                        </div>
+                    </div>
+                </div></div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         CINEMAGRAPH TRANSITION — BANNER 2 (Réassurance & Engagement)
+    ═══════════════════════════════════ -->
+    <div class="cine-banner" id="banderole-transition-2">
+        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&amp;fit=crop&amp;w=1920&amp;q=80" alt="Matières d'exception et engagement qualité" loading="lazy">
+        <div class="cine-banner-overlay"></div>
+        <div class="cine-banner-content">
+            <span class="cine-banner-eyebrow">Engagement &amp; Confiance</span>
+            <p class="cine-banner-quote">« La garantie d'une relation humaine privilégiée et d'un travail soigné dans les moindres détails. »</p>
+            <span class="cine-banner-author">Transparence · Respect des Délais · Satisfaction Garantie</span>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         FOIRE AUX QUESTIONS (FAQ - Optionnel)
+    ═══════════════════════════════════ -->
+    <section id="faq" class="section section-faq">
+        <div class="container">
+            <span class="eyebrow" style="text-align:center;">Questions Fréquentes</span>
+            <h2 class="section-title">Tout ce que vous devez savoir</h2>
+            <div class="faq-accordion" id="faq-accordion">
+                <details class="faq-item" open="">
+                    <summary class="faq-question">
+                        <span>Quels sont les délais d'intervention habituels ?</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Selon l'envergure de votre projet, nous intervenons généralement sous 1 à 3 semaines après validation de la proposition.</p>
+                    </div>
+                </details>
+            
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        <span>Proposez-vous un devis préalable gratuit ?</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Oui, toute première estimation et prise de contact sont entièrement gratuites et sans engagement.</p>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         INFOS PRATIQUES, HORAIRES & ZONE (Optionnel)
+    ═══════════════════════════════════ -->
+    <section id="infos-pratiques" class="section section-practical-info">
+        <div class="container">
+            <span class="eyebrow" style="text-align:center;">Informations</span>
+            <h2 class="section-title">Disponibilités &amp; Zone d'Action</h2>
+            
+            <div class="status-pill-container" style="display: flex; justify-content: center; margin-bottom: var(--space-lg);">
+                <div class="live-status-pill">
+                    <span class="status-pulse-dot"></span>
+                    <span class="status-text">Disponible pour prise de rendez-vous</span>
+                </div>
+            </div>
+
+            <div class="practical-info-grid">
+                <div class="practical-card hours-card">
+                    <h3>Horaires d'Ouverture</h3>
+                    <div class="hours-list" id="hours-list">
+                <div class="hour-row" style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed var(--color-border); font-size:0.95rem;">
+                    <span style="font-weight:600; color:var(--color-text-main);">Lundi au Vendredi</span>
+                    <span style="color:var(--color-primary); font-weight:500;">09h00 — 19h00</span>
+                </div>
+            
+                <div class="hour-row" style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed var(--color-border); font-size:0.95rem;">
+                    <span style="font-weight:600; color:var(--color-text-main);">Samedi</span>
+                    <span style="color:var(--color-primary); font-weight:500;">Sur rendez-vous</span>
+                </div>
+            
+                <div class="hour-row" style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed var(--color-border); font-size:0.95rem;">
+                    <span style="font-weight:600; color:var(--color-text-main);">Dimanche</span>
+                    <span style="color:var(--color-primary); font-weight:500;">Fermé</span>
+                </div>
+            </div>
+                </div>
+                <div class="practical-card area-card">
+                    <h3>Zone d'Intervention</h3>
+                    <div class="areas-badges" id="areas-badges">
+                <span class="area-badge" style="display:inline-block; margin:4px; padding:4px 12px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-pill); font-size:0.85rem; color:var(--color-text-main);">Paris &amp; Île-de-France</span>
+            
+                <span class="area-badge" style="display:inline-block; margin:4px; padding:4px 12px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-pill); font-size:0.85rem; color:var(--color-text-main);">Métropole Lyonnaise</span>
+            
+                <span class="area-badge" style="display:inline-block; margin:4px; padding:4px 12px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-pill); font-size:0.85rem; color:var(--color-text-main);">Déplacements sur demande</span>
+            </div>
+                    <div class="direct-contact-box" style="margin-top: var(--space-md);">
+                        <p><strong>Adresse :</strong> <span id="info-address">12 rue de la Paix, 75002 Paris</span></p>
+                        <p><strong>Téléphone direct :</strong> <a id="info-phone" href="tel:+33140000000">+33 1 40 00 00 00</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         CONTACT
+    ═══════════════════════════════════ -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <span class="eyebrow reveal" style="text-align:center;">Contact</span>
+            <h2 class="section-title reveal">Prendre Rendez-vous</h2>
+            <p class="section-subtitle reveal">Un projet, une envie, une question — écrivez-moi.</p>
+
+            <form id="contact-form" class="contact-form" action="https://formsubmit.co/EMAIL_DESTINATAIRE" method="POST" novalidate="">
+                <!-- Configurations FormSubmit & Antispam Honeypot -->
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="box">
+                <input type="hidden" name="_subject" id="contact-subject" value="Nouveau message depuis votre site web !">
+                <input type="hidden" name="_next" id="contact-next" value="">
+                <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+                <div class="form-group">
+                    <label for="name">Nom complet</label>
+                    <input type="text" id="name" name="name" placeholder="Votre nom" required="">
+                </div>
+                <div class="form-group">
+                    <label for="email">Adresse Email</label>
+                    <input type="email" id="email" name="email" placeholder="votre@email.com" required="">
+                </div>
+                <div class="form-group">
+                    <label for="service">Type de prestation</label>
+                    <select id="service" name="service" required=""><option value="" disabled="" selected="">Sélectionnez une prestation</option><option value="mariage">Maquillage Mariage</option><option value="teint_lumineux">Teint Lumineux &amp; Événement</option><option value="shooting">Shooting &amp; Éditorial</option><option value="autre">Autre demande</option></select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Votre projet</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Date, lieu, envies... Racontez-moi votre projet." required=""></textarea>
+                </div>
+                <button type="submit" class="btn-primary" id="contact-submit">Envoyer le message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         FOOTER
+    ═══════════════════════════════════ -->
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <h3 id="footer-site-name">Votre Entreprise</h3>
+                <p id="footer-site-tagline">L'Excellence et la Qualité au service de vos projets.</p>
+            </div>
+
+            <!-- [AUTONOME_ONLY_START] -->
+            <div class="footer-links">
+                <a href="#" id="open-admin-login" class="admin-link">Espace Pro</a>
+            </div>
+            <!-- [AUTONOME_ONLY_END] -->
+
+            <div class="footer-bottom">
+                <p id="footer-copyright">© 2026 Votre Entreprise. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">×</span>
+        <div class="lightbox-content" id="lightbox-content"></div>
+    </div>
+
+    <!-- [AUTONOME_ONLY_START] -->
+    <!-- Admin Login Modal -->
+    <div id="admin-login-modal" class="lightbox">
+        <div class="lightbox-content" style="background: var(--color-surface, #fff); padding: 40px 28px; text-align: center; position: relative; max-width: 440px; flex-direction: column; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <span class="admin-modal-close" style="position:absolute; top: 16px; right: 20px; font-size: 1.5rem; cursor: pointer; color: var(--color-text-light, #777); line-height: 1;">×</span>
+            <h2 style="font-family: var(--font-heading, serif); font-size: 1.8rem; font-weight: 300; margin-bottom: 8px; color: var(--color-text, #222);">Accès Pro</h2>
+            <p style="margin-bottom: 24px; color: var(--color-text-light, #777); font-size: 0.9rem;">Veuillez entrer votre mot de passe pour accéder à l'espace d'administration.</p>
+            <form id="client-admin-login-form" onsubmit="event.preventDefault(); window.AppRoutes &amp;&amp; window.AppRoutes.handleModalSubmit(event);" style="display: grid; gap: 15px; width: 100%; text-align: left;">
+                <div class="form-group" style="margin: 0;">
+                    <div style="display: flex; gap: 8px;">
+                        <input type="password" id="client-admin-password" placeholder="Mot de passe" required="" autocomplete="current-password" style="flex: 1; padding: 12px 14px; border: 1px solid rgba(0,0,0,0.15); border-radius: 8px; font-size: 1rem;">
+                        <button type="button" id="client-toggle-password" onclick="var p=document.getElementById('client-admin-password'); if(p){p.type=(p.type==='password'?'text':'password'); this.textContent=(p.type==='text'?'Masquer':'Afficher');}" style="padding: 0 14px; background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.15); border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-family: inherit; font-weight: 500; white-space: nowrap;">Afficher</button>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; padding: 12px; font-size: 1rem; border-radius: 8px; justify-content: center;">Se connecter</button>
+            </form>
+        </div>
+    </div>
+    <!-- [AUTONOME_ONLY_END] -->
+
+    <!-- Modale Étude de Cas / Case Study (CAND-06) -->
+    <div id="case-study-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-header-texts">
+                    <span class="modal-tag" id="modal-cs-badge"></span>
+                    <h3 class="modal-title" id="modal-cs-title"></h3>
+                    <p class="modal-subtitle" id="modal-cs-subtitle"></p>
+                </div>
+                <button type="button" class="modal-close" id="modal-cs-close" aria-label="Fermer la modale">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-specs" id="modal-cs-specs"></div>
+                <div class="modal-description" id="modal-cs-description"></div>
+                <div class="modal-gallery" id="modal-cs-gallery"></div>
+                <div class="modal-actions" id="modal-cs-actions"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast Flottante (CAND-09) -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <!-- Barre d'Action Flottante Mobile (Action Bar 24/7 & Statut Live) -->
+    <aside id="action-bar-mobile" class="action-bar-mobile" style="display: none;" aria-label="Action rapide mobile"></aside>
+
+    <!-- Scripts Socle Commun (Configurations & Contenu) -->
+    <script src="js/theme-config.js?v=1.0.2"></script>
+    <script src="js/site-config.js?v=1.0.2"></script>
+    <script src="js/feature-config.js?v=1.0.2"></script>
+    <script src="js/default-content.js?v=1.0.2"></script>
+    <script src="js/content-schema.js?v=1.0.2"></script>
+
+    <!-- [AUTONOME_ONLY_START] -->
+    <script src="js/integrations/firebase/firebase-client.js?v=1.0.2"></script>
+    <script src="js/integrations/firebase/media-repository.js?v=1.0.2"></script>
+    <script src="js/integrations/firebase/content-repository.js?v=1.0.2"></script>
+    <!-- [AUTONOME_ONLY_END] -->
+
+    <!-- Intégration Contact Isolée (Validation, Service, Contrôleur) -->
+    <script src="js/integrations/contact/contact-validation.js?v=1.0.2"></script>
+    <script src="js/integrations/contact/contact-service.js?v=1.0.2"></script>
+    <script src="js/integrations/contact/contact-controller.js?v=1.0.2"></script>
+
+    <!-- Adaptateur universel, Routage & Rendu des sections -->
+    <script src="js/content-adapter.js?v=1.0.2"></script>
+    <script src="js/routes.js?v=1.0.2"></script>
+    <script src="js/section-renderer.js?v=1.0.2"></script>
+    <script src="js/app.js?v=1.0.2"></script>
+
+
+</body></html>

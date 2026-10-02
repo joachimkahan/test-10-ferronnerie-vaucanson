@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "specVersion": "1.0",
+  "projectSlug": "ferronnerie-art-vaucanson-lyon",
+  "selectedOffer": "autonomous",
+  "templateVersion": "2.6.0",
+  "schemaVersion": 1,
+  "language": "fr",
+  "locale": "fr-FR",
+  "sectionOrder": [
+    "hero",
+    "ticker",
+    "about",
+    "banner",
+    "looks",
+    "beforeAfter",
+    "gallery",
+    "prestations",
+    "testimonials",
+    "partners",
+    "timeline",
+    "faq",
+    "practicalInfo",
+    "contact",
+    "footer"
+  ],
+  "enabledSections": {
+    "hero": true,
+    "ticker": true,
+    "about": true,
+    "banner": true,
+    "looks": true,
+    "beforeAfter": true,
+    "gallery": true,
+    "prestations": true,
+    "testimonials": true,
+    "partners": true,
+    "timeline": true,
+    "faq": true,
+    "practicalInfo": true,
+    "contact": true,
+    "footer": true
+  },
+  "variants": {
+    "hero": "editorial-split",
+    "gallery": "curated-grid",
+    "prestations": "menu-list",
+    "testimonials": "cards-grid",
+    "partners": "brand-showcase"
+  },
+  "enabledFeatures": {
+    "contactForm": true,
+    "galleryLightbox": true,
+    "glowSlider": true,
+    "editorialTabs": true,
+    "testimonials": true,
+    "faq": true,
+    "process": false,
+    "practicalInfo": true,
+    "partners": true,
+    "timeline": true,
+    "secondaryCta": true,
+    "ticker": true,
+    "cookieBanner": true,
+    "legalModal": true,
+    "offlineIndicator": true,
+    "keyboardNav": true,
+    "scrollProgress": true,
+    "lazyLoading": true,
+    "metaSocial": true,
+    "structuredData": true,
+    "reducedMotion": true,
+    "i18n": true,
+    "customCursor": false,
+    "soundEffects": false,
+    "pageTransitions": false
+  },
+  "theme": {
+    "colorScheme": "dark",
+    "primaryColor": "#0B0E14",
+    "primarySurface": "#121722",
+    "primaryLight": "#1B2232",
+    "accentColor": "#C67D43",
+    "accentHover": "#D98E54",
+    "accentGlow": "rgba(198, 125, 67, 0.25)",
+    "fontHeading": "'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+    "fontBody": "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+    "textColor": "#E2E8F0",
+    "textMuted": "#94A3B8",
+    "surfaceBorder": "rgba(198, 125, 67, 0.18)",
+    "radiusSm": "4px",
+    "radiusMd": "8px",
+    "radiusLg": "12px",
+    "heroOverlayOpacity": 0.65
+  },
+  "integrations": {
+    "contactForm": {
+      "provider": "formsubmit",
+      "endpoint": "https://formsubmit.co/contact@ferronnerie-vaucanson.fr",
+      "captcha": false
+    },
+    "map": {
+      "provider": "osm",
+      "latitude": 45.7828,
+      "longitude": 4.8082,
+      "zoom": 15
+    },
+    "analytics": {
+      "provider": "none"
+    }
+  },
+  "performance": {
+    "lazyLoadOffset": 200,
+    "debounceDelay": 150,
+    "analyticsConsent": "opt-in"
+  },
+  "accessibility": {
+    "ariaCompliance": "WCAG-2.1-AA",
+    "minContrastRatio": 4.5,
+    "focusableSelectors": "a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex='-1'])"
+  },
+  "i18n": {
+    "defaultLanguage": "fr",
+    "availableLanguages": ["fr", "en"],
+    "fallbackLanguage": "fr",
+    "storageKey": "webexpress_lang"
+  }
+}

@@ -1,0 +1,7 @@
+# Sécurité des accès
+AGENCE_ACCOUNT.md
+
+# Fichiers temporaires & cache Python
+__pycache__/
+*.pyc
+.temp*

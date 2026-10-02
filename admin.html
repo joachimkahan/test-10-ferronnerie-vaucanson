@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration | Espace Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/public.css">
+    <link rel="stylesheet" href="css/admin.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+</head>
+<body>
+    <!-- Section de connexion avec Mot de Passe -->
+    <div id="login-section" class="admin-container" style="max-width: 480px; margin: 60px auto; padding: 40px; background: var(--color-surface, #fff); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); text-align: center;">
+        <a href="index.html" class="back-link" style="display:inline-block; margin-bottom: 20px;">← Retour au site public</a>
+        <h2 class="section-title" style="margin-bottom: 10px;">Espace Pro</h2>
+        <p class="section-subtitle" style="margin-bottom: 25px; font-size: 0.95rem;">Entrez votre mot de passe pour gérer les contenus du site.</p>
+        
+        <form id="admin-login-form" onsubmit="event.preventDefault(); window.AdminAuth && window.AdminAuth.handleLoginSubmit(event);" style="display: grid; gap: 18px; text-align: left;">
+            <div class="form-group" style="margin: 0; position: relative;">
+                <label for="admin-password-input" style="font-weight: 500; font-size: 0.9rem;">Mot de passe</label>
+                <div style="display: flex; gap: 8px; margin-top: 6px;">
+                    <input type="password" id="admin-password-input" placeholder="Votre mot de passe" required autocomplete="current-password" style="flex: 1; padding: 12px 14px; border: 1px solid rgba(0,0,0,0.15); border-radius: 8px; font-size: 1rem;">
+                    <button type="button" id="toggle-password-visibility" onclick="var p=document.getElementById('admin-password-input'); if(p){p.type=(p.type==='password'?'text':'password'); this.textContent=(p.type==='text'?'Masquer':'Afficher');}" style="padding: 0 14px; background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.15); border-radius: 8px; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">Afficher</button>
+                </div>
+            </div>
+            <button type="submit" id="btn-admin-login-submit" class="btn-primary" style="width: 100%; padding: 12px; font-size: 1rem; border-radius: 8px; justify-content: center;">Se connecter</button>
+        </form>
+    </div>
+
+    <!-- Section Tableau de Bord -->
+    <div id="dashboard-section" class="admin-container" style="display:none;">
+        <div class="admin-header">
+            <div>
+                <h2 style="font-family: var(--font-heading); font-size: 2rem;">Tableau de bord</h2>
+                <p style="color: var(--color-text-light);">Gérez le contenu public de votre site web.</p>
+            </div>
+            <div style="display: flex; gap: 15px;">
+                <a href="index.html" class="btn-secondary" style="text-decoration:none;">Voir le site</a>
+                <button id="btn-logout" class="btn-secondary" style="border-color: #dc3545; color: #dc3545;">Déconnexion</button>
+            </div>
+        </div>
+
+        <div id="admin-section-gallery" class="admin-module-block">
+            <div class="upload-section">
+                <h3 style="margin-bottom: 15px;">Ajouter une réalisation (Photo ou Vidéo)</h3>
+                <form id="upload-form" style="display: grid; gap: 15px;" onsubmit="event.preventDefault();">
+                    <div class="form-group" style="margin:0;">
+                        <label>Titre de la réalisation</label>
+                        <input type="text" id="item-title" placeholder="Ex: Mariage d'été - Teint Glowy" required>
+                    </div>
+                    
+                    <div class="form-group" style="margin:0;">
+                        <label>Type de média</label>
+                        <select id="item-type" required>
+                            <option value="image">Photo</option>
+                            <option value="video">Vidéo (Lien YouTube, Vimeo, Instagram)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="file-upload-group" style="margin:0;">
+                        <label>Fichier depuis votre ordinateur (Photo uniquement)</label>
+                        <input type="file" id="item-file" accept="image/png, image/jpeg, image/webp" style="background: white;">
+                        <small style="color: var(--color-text-light); margin-top: 5px; display: block;">Sélectionnez une image sur votre ordinateur.</small>
+                    </div>
+
+                    <div class="form-group" style="margin:0;">
+                        <label>OU URL externe (Si vidéo ou lien direct)</label>
+                        <input type="url" id="item-url" placeholder="https://...">
+                        <small style="color: var(--color-text-light); margin-top: 5px; display: block;">
+                            Laissez vide si vous avez importé une photo ci-dessus. <b>Requis pour les vidéos.</b>
+                        </small>
+                    </div>
+                    <button type="submit" class="btn-primary" style="justify-self: start;">Ajouter au Portfolio</button>
+                </form>
+            </div>
+
+            <h3 style="margin-bottom: 20px; font-family: var(--font-heading);">Votre Portfolio Actuel</h3>
+            <div class="gallery-admin-grid" id="admin-gallery">
+                <!-- Injecté dynamiquement par JS -->
+                <p>Chargement des données...</p>
+            </div>
+            <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--or-discret); opacity: 0.3;">
+        </div>
+
+        <div id="admin-section-looks" class="admin-module-block">
+            <div class="admin-header">
+                <div>
+                    <h2 style="font-family: var(--font-heading); font-size: 2rem;">Looks Signature</h2>
+                    <p style="color: var(--color-text-light);">Gérez les onglets de votre section Looks Signature.</p>
+                </div>
+            </div>
+
+            <div class="upload-section">
+                <h3 style="margin-bottom: 15px;">Ajouter un Look Signature</h3>
+                <form id="look-form" style="display: grid; gap: 15px;" onsubmit="event.preventDefault();">
+                    <div class="form-group" style="margin:0;">
+                        <label>Titre (ex: L'éclat d'une peau qui respire)</label>
+                        <input type="text" id="look-title" required>
+                    </div>
+                    <div class="form-group" style="margin:0;">
+                        <label>Sous-titre / Onglet (ex: Look N°01 — Le Teint Radiant)</label>
+                        <input type="text" id="look-subtitle" required>
+                    </div>
+                    <div class="form-group" style="margin:0;">
+                        <label>Description (Paragraphe explicatif)</label>
+                        <textarea id="look-description" rows="3" required style="width:100%; padding: 10px; border: 1px solid #ddd; background: #fff;"></textarea>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
+                        <div style="border: 1px solid var(--or-discret); padding: 15px; border-radius: 8px;">
+                            <h4 style="margin-bottom: 10px; font-family: var(--font-display); font-weight: 300; font-size: 1.1rem;">Image Principale</h4>
+                            <div class="form-group" style="margin:0;">
+                                <label>Fichier depuis votre ordinateur</label>
+                                <input type="file" id="look-hero-file" accept="image/png, image/jpeg, image/webp" style="background: white;">
+                            </div>
+                            <div class="form-group" style="margin:0; margin-top: 10px;">
+                                <label>OU URL externe</label>
+                                <input type="url" id="look-hero-url" placeholder="https://...">
+                            </div>
+                        </div>
+                        
+                        <div style="border: 1px solid var(--or-discret); padding: 15px; border-radius: 8px;">
+                            <h4 style="margin-bottom: 10px; font-family: var(--font-display); font-weight: 300; font-size: 1.1rem;">Image Détail 1</h4>
+                            <div class="form-group" style="margin:0;">
+                                <label>Fichier depuis votre ordinateur</label>
+                                <input type="file" id="look-detail1-file" accept="image/png, image/jpeg, image/webp" style="background: white;">
+                            </div>
+                            <div class="form-group" style="margin:0; margin-top: 10px;">
+                                <label>OU URL externe</label>
+                                <input type="url" id="look-detail1-url" placeholder="https://...">
+                            </div>
+                        </div>
+
+                        <div style="border: 1px solid var(--or-discret); padding: 15px; border-radius: 8px;">
+                            <h4 style="margin-bottom: 10px; font-family: var(--font-display); font-weight: 300; font-size: 1.1rem;">Image Détail 2</h4>
+                            <div class="form-group" style="margin:0;">
+                                <label>Fichier depuis votre ordinateur</label>
+                                <input type="file" id="look-detail2-file" accept="image/png, image/jpeg, image/webp" style="background: white;">
+                            </div>
+                            <div class="form-group" style="margin:0; margin-top: 10px;">
+                                <label>OU URL externe</label>
+                                <input type="url" id="look-detail2-url" placeholder="https://...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin:0;">
+                        <label>Tags (Séparés par des virgules, ex: Blush, Glow, Naturel)</label>
+                        <input type="text" id="look-tags" required>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="justify-self: start;">Ajouter le Look</button>
+                </form>
+            </div>
+
+            <h3 style="margin-bottom: 20px; font-family: var(--font-heading);">Vos Looks Actuels</h3>
+            <div class="gallery-admin-grid" id="admin-looks">
+                <!-- Injecté dynamiquement par JS -->
+                <p>Chargement des looks...</p>
+            </div>
+            <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--or-discret); opacity: 0.3;">
+        </div>
+
+        <div id="admin-section-before-after" class="admin-module-block">
+            <div class="admin-header">
+                <div>
+                    <h2 style="font-family: var(--font-heading); font-size: 2rem;">Avant / Après</h2>
+                    <p style="color: var(--color-text-light);">Gérez vos transformations avant/après visibles sur le site.</p>
+                </div>
+            </div>
+
+            <div class="upload-section">
+                <h3 style="margin-bottom: 15px;">Ajouter un Avant / Après</h3>
+                <form id="ba-form" style="display: grid; gap: 15px;" onsubmit="event.preventDefault();">
+                    <div class="form-group" style="margin:0;">
+                        <label>Titre de la transformation</label>
+                        <input type="text" id="ba-title" placeholder="Ex: Teint Naturel Sublimé" required>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <h4 style="margin-bottom: 10px; font-family: var(--font-display); font-weight: 300; font-size: 1.1rem;">Photo AVANT</h4>
+                            <div class="form-group" style="margin:0;">
+                                <label>Fichier depuis votre ordinateur</label>
+                                <input type="file" id="ba-before-file" accept="image/png, image/jpeg, image/webp" style="background: white;">
+                            </div>
+                            <div class="form-group" style="margin:0; margin-top: 10px;">
+                                <label>OU URL externe</label>
+                                <input type="url" id="ba-before-url" placeholder="https://...">
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="margin-bottom: 10px; font-family: var(--font-display); font-weight: 300; font-size: 1.1rem;">Photo APRÈS</h4>
+                            <div class="form-group" style="margin:0;">
+                                <label>Fichier depuis votre ordinateur</label>
+                                <input type="file" id="ba-after-file" accept="image/png, image/jpeg, image/webp" style="background: white;">
+                            </div>
+                            <div class="form-group" style="margin:0; margin-top: 10px;">
+                                <label>OU URL externe</label>
+                                <input type="url" id="ba-after-url" placeholder="https://...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="justify-self: start;">Ajouter l'Avant / Après</button>
+                </form>
+            </div>
+
+            <h3 style="margin-bottom: 20px; font-family: var(--font-heading);">Vos Avant / Après Actuels</h3>
+            <div class="gallery-admin-grid" id="admin-before-after">
+                <!-- Injecté dynamiquement par JS -->
+                <p>Chargement des avant/après...</p>
+            </div>
+            <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--or-discret); opacity: 0.3;">
+        </div>
+
+        <div id="admin-section-prestations" class="admin-module-block">
+            <div class="admin-header">
+                <div>
+                    <h2 style="font-family: var(--font-display); font-size: 2rem;">Prestations & Tarifs</h2>
+                    <p style="color: var(--gris-pierre);">Gérez les cartes de prestations visibles sur le site.</p>
+                </div>
+            </div>
+
+            <div class="upload-section">
+                <h3 style="margin-bottom: 15px;">Ajouter une Prestation</h3>
+                <form id="presta-form" style="display: grid; gap: 15px;" onsubmit="event.preventDefault();">
+                    <div style="display: grid; grid-template-columns: 100px 1fr; gap: 15px;">
+                        <div class="form-group" style="margin:0;">
+                            <label>Icône / Réf. (Optionnel)</label>
+                            <input type="text" id="presta-icon" placeholder="01" maxlength="6" style="text-align: center; font-size: 1.1rem;">
+                            <small style="color: var(--gris-pierre); margin-top: 4px; display: block; font-size: 0.7rem;">Ex: 01, N°1, ou laisser vide</small>
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <label>Titre de la prestation</label>
+                            <input type="text" id="presta-title" placeholder="Ex: Prestation Clé en Main" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin:0;">
+                        <label>Description</label>
+                        <textarea id="presta-description" rows="3" required style="width:100%; padding: 10px; border: 1px solid #ddd; background: #fff;" placeholder="Décrivez cette prestation en détail..."></textarea>
+                    </div>
+
+                    <div class="form-group" style="margin:0;">
+                        <label>Tarif</label>
+                        <input type="text" id="presta-price" placeholder="Ex: À partir de 280€" required>
+                        <small style="color: var(--gris-pierre); margin-top: 4px; display: block; font-size: 0.7rem;">Format libre : "À partir de 95€", "Demi-journée : 350€", "Sur devis", etc.</small>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="justify-self: start;">Ajouter la Prestation</button>
+                </form>
+            </div>
+
+            <h3 style="margin-bottom: 20px; font-family: var(--font-display);">Vos Prestations Actuelles</h3>
+            <div class="gallery-admin-grid" id="admin-prestations" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));">
+                <!-- Injecté dynamiquement par JS -->
+                <p>Chargement des prestations...</p>
+            </div>
+            <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--or-discret); opacity: 0.3;">
+        </div>
+
+        <!-- ── 5. MÉTHODE & PROCESSUS ── -->
+        <div id="admin-section-process" class="admin-module-block">
+            <div class="admin-header">
+                <div>
+                    <h2 style="font-family: var(--font-display); font-size: 2rem;">Méthode & Processus</h2>
+                    <p style="color: var(--gris-pierre);">Gérez les étapes de travail affichées sur votre site.</p>
+                </div>
+            </div>
+            <div class="upload-section">
+                <h3 style="margin-bottom: 15px;">Ajouter une étape</h3>
+                <form id="process-form" style="display: grid; gap: 15px;" onsubmit="event.preventDefault();">
+                    <div style="display: grid; grid-template-columns: 100px 1fr; gap: 15px;">
+                        <div class="form-group" style="margin:0;">
+                            <label>Étape (N°)</label>
+                            <input type="text" id="step-number" placeholder="01" required maxlength="4" style="text-align: center; font-weight: bold;">
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <label>Titre de l'étape</label>
+                            <input type="text" id="step-title" placeholder="Ex: Échange & Diagnostic" required>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin:0;">
+                        <label>Description</label>
+                        <textarea id="step-description" rows="3" required style="width:100%; padding: 10px; border: 1px solid #ddd; background: #fff;" placeholder="Décrivez cette étape..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="justify-self: start;">Ajouter l'étape</button>
+                </form>
+            </div>
+            <h3 style="margin-bottom: 20px; font-family: var(--font-display);">Vos Étapes Actuelles</h3>
+            <div class="gallery-admin-grid" id="admin-process" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));">
+                <p>Chargement des étapes...</p>
+            </div>
+            <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--or-discret); opacity: 0.3;">
+        </div>
+
+        <!-- ── 6. TÉMOIGNAGES & AVIS ── -->
+        <div id="admin-section-testimonials" class="admin-module-block">
+            <div class="admin-header">
+                <div>
+                    <h2 style="font-family: var(--font-display); font-size: 2rem;">Témoignages & Avis</h2>
+                    <p style="color: var(--gris-pierre);">Gérez les retours clients et avis affichés sur le site.</p>
+                </div>
+            </div>
+            <div class="upload-section">
+                <h3 style="margin-bottom: 15px;">Ajouter un Témoignage</h3>
+                <form id="testimonial-form" style="display: grid; gap: 15px;" onsubmit="event.preventDefault();">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group" style="margin:0;">
+                            <label>Nom du client</label>
+                            <input type="text" id="testi-author" placeholder="Ex: Camille D." required>
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <label>Rôle / Contexte</label>
+                            <input type="text" id="testi-role" placeholder="Ex: Mariée de Juillet · Il y a 3 semaines" required>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 140px 1fr; gap: 15px; align-items: center;">
+                        <div class="form-group" style="margin:0;">
+                            <label>Note (Étoiles)</label>
+                            <select id="testi-rating" required style="padding: 10px; border-radius: 6px; border: 1px solid #ddd; width: 100%;">
+                                <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+                                <option value="4">⭐⭐⭐⭐ (4/5)</option>
+                                <option value="3">⭐⭐⭐ (3/5)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin:0; display: flex; align-items: center; gap: 8px; margin-top: 22px;">
+                            <input type="checkbox" id="testi-verified" checked style="width: 18px; height: 18px;">
+                            <label for="testi-verified" style="margin:0; cursor: pointer;">Afficher le badge "✓ Avis Vérifié"</label>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin:0;">
+                        <label>Texte du témoignage</label>
+                        <textarea id="testi-quote" rows="3" required style="width:100%; padding: 10px; border: 1px solid #ddd; background: #fff;" placeholder="Ce que le client a pensé de votre service..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="justify-self: start;">Ajouter le Témoignage</button>
+                </form>
+            </div>
+            <h3 style="margin-bottom: 20px; font-family: var(--font-display);">Vos Avis Actuels</h3>
+            <div class="gallery-admin-grid" id="admin-testimonials" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+                <p>Chargement des avis...</p>
+            </div>
+            <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--or-discret); opacity: 0.3;">
+        </div>
+
+        <!-- ── 7. FAQ ACCORDÉON ── -->
+        <div id="admin-section-faq" class="admin-module-block">
+            <div class="admin-header">
+                <div>
+                    <h2 style="font-family: var(--font-display); font-size: 2rem;">Foire Aux Questions (FAQ)</h2>
+                    <p style="color: var(--gris-pierre);">Gérez les questions fréquentes et leurs réponses.</p>
+                </div>
+            </div>
+            <div class="upload-section">
+                <h3 style="margin-bottom: 15px;">Ajouter une Question / Réponse</h3>
+                <form id="faq-form" style="display: grid; gap: 15px;" onsubmit="event.preventDefault();">
+                    <div class="form-group" style="margin:0;">
+                        <label>Question</label>
+                        <input type="text" id="faq-question" placeholder="Ex: Comment se déroule la première prise de contact ?" required>
+                    </div>
+                    <div class="form-group" style="margin:0;">
+                        <label>Réponse détaillée</label>
+                        <textarea id="faq-answer" rows="3" required style="width:100%; padding: 10px; border: 1px solid #ddd; background: #fff;" placeholder="Votre réponse claire et rassurante..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="justify-self: start;">Ajouter à la FAQ</button>
+                </form>
+            </div>
+            <h3 style="margin-bottom: 20px; font-family: var(--font-display);">Questions Actuelles</h3>
+            <div class="gallery-admin-grid" id="admin-faq" style="grid-template-columns: 1fr;">
+                <p>Chargement de la FAQ...</p>
+            </div>
+            <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--or-discret); opacity: 0.3;">
+        </div>
+
+        <!-- ── 8. INFOS PRATIQUES, HORAIRES & DISPONIBILITÉS ── -->
+        <div id="admin-section-practical-info" class="admin-module-block">
+            <div class="admin-header">
+                <div>
+                    <h2 style="font-family: var(--font-display); font-size: 2rem;">Disponibilités & Horaires</h2>
+                    <p style="color: var(--gris-pierre);">Gérez vos horaires d'ouverture, statut de disponibilité et zones d'intervention.</p>
+                </div>
+            </div>
+            <div class="upload-section">
+                <h3 style="margin-bottom: 15px;">Modifier les Informations Pratiques</h3>
+                <form id="practical-info-form" style="display: grid; gap: 15px;" onsubmit="event.preventDefault();">
+                    <div class="form-group" style="margin:0; display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(201, 169, 110, 0.08); border-radius: 8px; border: 1px solid var(--or-discret);">
+                        <input type="checkbox" id="info-status-toggle" checked style="width: 20px; height: 20px;">
+                        <div>
+                            <label for="info-status-toggle" style="margin:0; font-weight: bold; cursor: pointer;"><span class="status-pulse-dot" style="display:inline-block; margin-right:6px; vertical-align:middle;"></span> Statut Live : Actif</label>
+                            <small style="display:block; color: var(--gris-pierre);">Affiche "Disponible pour prise de rendez-vous" sur le site</small>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group" style="margin:0;">
+                            <label>Horaires Lundi - Vendredi</label>
+                            <input type="text" id="info-hours-week" placeholder="08:30 - 19:00">
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <label>Horaires Samedi</label>
+                            <input type="text" id="info-hours-sat" placeholder="09:00 - 18:00">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin:0;">
+                        <label>Horaires Dimanche</label>
+                        <input type="text" id="info-hours-sun" placeholder="Sur rendez-vous préalable">
+                    </div>
+                    <div class="form-group" style="margin:0;">
+                        <label>Zones d'intervention (séparées par des virgules)</label>
+                        <input type="text" id="info-areas" placeholder="Paris Centre, Hauts-de-Seine (92), Yvelines (78), Déplacements sur demande">
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group" style="margin:0;">
+                            <label>Adresse physique</label>
+                            <input type="text" id="info-address-input" placeholder="12 Rue de la Paix, 75002 Paris">
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <label>Téléphone direct</label>
+                            <input type="text" id="info-phone-input" placeholder="+33 1 42 00 00 00">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary" style="justify-self: start;">Enregistrer les Horaires & Infos</button>
+                </form>
+            </div>
+            <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--or-discret); opacity: 0.3;">
+        </div>
+
+        <!-- ── 9. PARTENAIRES & RÉFÉRENCES ── -->
+        <div id="admin-section-partners" class="admin-module-block">
+            <div class="admin-header">
+                <div>
+                    <h2 style="font-family: var(--font-display); font-size: 2rem;">Partenaires & Références</h2>
+                    <p style="color: var(--gris-pierre);">Gérez les logos et références de marques ou entreprises partenaires.</p>
+                </div>
+            </div>
+            <div class="upload-section">
+                <h3 style="margin-bottom: 15px;">Ajouter un Partenaire</h3>
+                <form id="partner-form" style="display: grid; gap: 15px;" onsubmit="event.preventDefault();">
+                    <div class="form-group" style="margin:0;">
+                        <label>Nom du partenaire / marque</label>
+                        <input type="text" id="partner-name" placeholder="Ex: Maison Vogue" required>
+                    </div>
+                    <div style="border: 1px solid var(--or-discret); padding: 15px; border-radius: 8px;">
+                        <h4 style="margin-bottom: 10px; font-family: var(--font-display); font-weight: 300; font-size: 1.1rem;">Logo du partenaire</h4>
+                        <div class="form-group" style="margin:0;">
+                            <label>Fichier depuis votre ordinateur (PNG, SVG, JPG, WebP)</label>
+                            <input type="file" id="partner-logo-file" accept="image/png, image/jpeg, image/webp, image/svg+xml" style="background: white;">
+                        </div>
+                        <div class="form-group" style="margin:0; margin-top: 10px;">
+                            <label>OU URL externe du logo</label>
+                            <input type="url" id="partner-logo-url" placeholder="https://...">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary" style="justify-self: start;">Ajouter le Partenaire</button>
+                </form>
+            </div>
+            <h3 style="margin-bottom: 20px; font-family: var(--font-display);">Vos Partenaires Actuels</h3>
+            <div class="gallery-admin-grid" id="admin-partners" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+                <p>Chargement des partenaires...</p>
+            </div>
+            <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--or-discret); opacity: 0.3;">
+        </div>
+
+        <!-- ── 10. PARCOURS & TIMELINE (CAND-04) ── -->
+        <div id="admin-section-timeline" class="admin-module-block">
+            <div class="admin-header">
+                <div>
+                    <h2 style="font-family: var(--font-display); font-size: 2rem;">Parcours & Savoir-Faire</h2>
+                    <p style="color: var(--gris-pierre);">Gérez les jalons de votre histoire et vos étapes d'évolution.</p>
+                </div>
+            </div>
+            <div class="upload-section">
+                <h3 style="margin-bottom: 15px;">Ajouter un jalon</h3>
+                <form id="timeline-form" style="display: grid; gap: 15px;" onsubmit="event.preventDefault();">
+                    <div style="display: grid; grid-template-columns: 180px 1fr; gap: 15px;">
+                        <div class="form-group" style="margin:0;">
+                            <label>Période / Date</label>
+                            <input type="text" id="timeline-date" placeholder="Ex: 2021 – 2023" required>
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <label>Intitulé du jalon</label>
+                            <input type="text" id="timeline-title" placeholder="Ex: Obtention du label d'excellence" required>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin:0;">
+                        <label>Lieu / Contexte (optionnel)</label>
+                        <input type="text" id="timeline-location" placeholder="Ex: Paris, France ou National">
+                    </div>
+                    <div class="form-group" style="margin:0;">
+                        <label>Description</label>
+                        <textarea id="timeline-description" rows="3" required style="width:100%; padding: 10px; border: 1px solid #ddd; background: #fff;" placeholder="Détaillez cette étape majeure..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="justify-self: start;">Ajouter le jalon</button>
+                </form>
+            </div>
+
+            <h3 style="margin-bottom: 20px; font-family: var(--font-display);">Vos Jalons Actuels</h3>
+            <div class="gallery-admin-grid" id="admin-timeline" style="grid-template-columns: 1fr;">
+                <p>Chargement des jalons...</p>
+            </div>
+            <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--or-discret); opacity: 0.3;">
+        </div>
+
+        <!-- Section Sécurité : Modification du Mot de Passe -->
+        <div class="admin-header">
+            <div>
+                <h2 style="font-family: var(--font-display); font-size: 2rem;">Sécurité & Accès</h2>
+                <p style="color: var(--gris-pierre);">Modifiez le mot de passe de votre espace d'administration (lettres, chiffres, caractères spéciaux).</p>
+            </div>
+        </div>
+
+        <div class="upload-section" style="max-width: 600px;">
+            <h3 style="margin-bottom: 15px;">Modifier mon mot de passe</h3>
+            <form id="password-change-form" onsubmit="event.preventDefault(); window.AdminDashboard && window.AdminDashboard.handlePasswordChangeSubmit(event);" style="display: grid; gap: 15px;">
+                <div class="form-group" style="margin:0;">
+                    <label for="current-password">Mot de passe actuel</label>
+                    <div style="display: flex; gap: 8px; margin-top: 4px;">
+                        <input type="password" id="current-password" placeholder="Mot de passe actuel" required autocomplete="current-password" style="flex: 1;">
+                        <button type="button" onclick="var p=document.getElementById('current-password'); if(p){p.type=(p.type==='password'?'text':'password'); this.textContent=(p.type==='text'?'Masquer':'Afficher');}" style="padding: 0 12px; background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.15); border-radius: 6px; cursor: pointer; font-size: 0.8rem;">Afficher</button>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:0;">
+                    <label for="new-password">Nouveau mot de passe</label>
+                    <div style="display: flex; gap: 8px; margin-top: 4px;">
+                        <input type="password" id="new-password" placeholder="Ex: MonSuper@MotDePasse2026!" required minlength="6" autocomplete="new-password" style="flex: 1;">
+                        <button type="button" onclick="var p=document.getElementById('new-password'); if(p){p.type=(p.type==='password'?'text':'password'); this.textContent=(p.type==='text'?'Masquer':'Afficher');}" style="padding: 0 12px; background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.15); border-radius: 6px; cursor: pointer; font-size: 0.8rem;">Afficher</button>
+                    </div>
+                    <small style="color: var(--color-text-light); margin-top: 4px; display: block; font-size: 0.75rem;">Au moins 6 caractères recommandés (majuscules, minuscules, chiffres, symboles acceptés).</small>
+                </div>
+                <div class="form-group" style="margin:0;">
+                    <label for="new-password-confirm">Confirmer le nouveau mot de passe</label>
+                    <div style="display: flex; gap: 8px; margin-top: 4px;">
+                        <input type="password" id="new-password-confirm" placeholder="Confirmez le nouveau mot de passe" required minlength="6" autocomplete="new-password" style="flex: 1;">
+                        <button type="button" onclick="var p=document.getElementById('new-password-confirm'); if(p){p.type=(p.type==='password'?'text':'password'); this.textContent=(p.type==='text'?'Masquer':'Afficher');}" style="padding: 0 12px; background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.15); border-radius: 6px; cursor: pointer; font-size: 0.8rem;">Afficher</button>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" style="justify-self: start;">Mettre à jour mon mot de passe</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts Socle Commun -->
+    <script src="js/theme-config.js?v=1.0.2"></script>
+    <script src="js/site-config.js?v=1.0.2"></script>
+    <script src="js/feature-config.js?v=1.0.2"></script>
+    <script src="js/default-content.js?v=1.0.2"></script>
+    <script src="js/content-schema.js?v=1.0.2"></script>
+    <script src="js/integrations/firebase/firebase-client.js?v=1.0.2"></script>
+    <script src="js/integrations/firebase/media-repository.js?v=1.0.2"></script>
+    <script src="js/integrations/firebase/content-repository.js?v=1.0.2"></script>
+
+    <!-- Scripts Module Administration Isolée -->
+    <script src="js/admin/admin-auth.js?v=1.0.2"></script>
+    <script src="js/admin/admin-dashboard.js?v=1.0.2"></script>
+    <script src="js/admin.js?v=1.0.2"></script>
+</body>
+</html>

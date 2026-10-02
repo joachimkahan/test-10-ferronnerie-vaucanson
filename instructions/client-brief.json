@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "businessName": "Ferronnerie d'Art Vaucanson & Fils",
+  "clientName": "Édouard Vaucanson",
+  "companyName": "Ferronnerie d'Art Vaucanson & Fils SAS",
+  "selectedOffer": "autonomous",
+  "activity": "Ferronnerie d'Art, Métallerie d'Exception & Restauration du Patrimoine",
+  "activityDescription": "Atelier de forge artisanale spécialisé dans la création de portails monumentaux, garde-corps débillardés, marquises cintrées et la restauration d'ouvrages classés Monuments Historiques.",
+  "targetAudience": "Propriétaires de demeures de caractère, architectes du patrimoine, Monuments Historiques, décorateurs d'intérieur haut de gamme.",
+  "city": "Lyon",
+  "address": "18 Quai Paul Sédillat, 69009 Lyon",
+  "phone": "04 78 83 24 19",
+  "email": "contact@ferronnerie-vaucanson.fr",
+  "openingHours": "Du Lundi au Vendredi : 07h30 - 12h00 / 13h30 - 18h30. Samedi sur rendez-vous.",
+  "serviceArea": "Lyon Métropole, Monts d'Or, Beaujolais, Auvergne-Rhône-Alpes, France & Suisse",
+  "tone": "Technique, noble, mesuré et respectueux de la matière. Vocabulaire précis d'artisan ferronnier d'art. Zéro émoji.",
+  "keySellingPoints": [
+    "Maître Artisan & Compagnon du Devoir du Tour de France",
+    "Forge manuelle au charbon de houille et assemblages rivetés à chaud",
+    "Agrément Restauration des Monuments Historiques & Label EPV",
+    "Étude d'épure au sol et relevé millimétrique sur site"
+  ],
+  "socialMedia": {
+    "instagram": "https://instagram.com/ferronnerie.vaucanson",
+    "facebook": "",
+    "linkedin": "https://linkedin.com/company/ferronnerie-vaucanson",
+    "googleMaps": "https://maps.google.com/?q=18+Quai+Paul+Sedillat+69009+Lyon"
+  }
+}
