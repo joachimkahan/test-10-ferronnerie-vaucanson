@@ -70,23 +70,6 @@
         }
     }
 
-    /**
-     * Lecture brute du LocalStorage SANS fallback (pour add/delete internes)
-     * Retourne null si rien n'est stocké.
-     */
-    function getLocalRaw(key) {
-        try {
-            const data = localStorage.getItem(key);
-            if (data !== null) {
-                return JSON.parse(data);
-            }
-            return null;
-        } catch (e) {
-            console.warn(`[ContentRepository] Erreur lecture brute LocalStorage (${key}):`, e);
-            return null;
-        }
-    }
-
     function setLocal(key, value) {
         try {
             localStorage.setItem(key, JSON.stringify(value));
@@ -146,9 +129,11 @@
                 }
             }
 
-            // Lecture locale brute pour éviter de re-fetch Firestore et créer un doublon
-            const items = getLocalRaw(STORAGE_KEYS.GALLERY) || [];
-            items.unshift(rawItem);
+            const items = await this.getGallery();
+            // Anti-doublon : n'ajouter que si pas déjà présent (évite duplication Firestore re-fetch)
+            if (!items.some(item => String(item.id) === String(rawItem.id))) {
+                items.unshift(rawItem);
+            }
             setLocal(STORAGE_KEYS.GALLERY, items);
         },
 
@@ -162,8 +147,7 @@
                 }
             }
 
-            // Lecture locale brute pour filtrer sans re-fetch Firestore
-            let items = getLocalRaw(STORAGE_KEYS.GALLERY) || [];
+            let items = await this.getGallery();
             items = items.filter(item => String(item.id) !== String(id));
             setLocal(STORAGE_KEYS.GALLERY, items);
         },
@@ -216,8 +200,10 @@
                 }
             }
 
-            const items = getLocalRaw(STORAGE_KEYS.LOOKS) || [];
-            items.push(rawLook);
+            const items = await this.getLooks();
+            if (!items.some(item => String(item.id) === String(rawLook.id))) {
+                items.push(rawLook);
+            }
             setLocal(STORAGE_KEYS.LOOKS, items);
         },
 
@@ -231,7 +217,7 @@
                 }
             }
 
-            let items = getLocalRaw(STORAGE_KEYS.LOOKS) || [];
+            let items = await this.getLooks();
             items = items.filter(item => String(item.id) !== String(id));
             setLocal(STORAGE_KEYS.LOOKS, items);
         },
@@ -284,8 +270,10 @@
                 }
             }
 
-            const items = getLocalRaw(STORAGE_KEYS.BEFORE_AFTER) || [];
-            items.push(rawItem);
+            const items = await this.getBeforeAfter();
+            if (!items.some(item => String(item.id) === String(rawItem.id))) {
+                items.push(rawItem);
+            }
             setLocal(STORAGE_KEYS.BEFORE_AFTER, items);
         },
 
@@ -299,7 +287,7 @@
                 }
             }
 
-            let items = getLocalRaw(STORAGE_KEYS.BEFORE_AFTER) || [];
+            let items = await this.getBeforeAfter();
             items = items.filter(item => String(item.id) !== String(id));
             setLocal(STORAGE_KEYS.BEFORE_AFTER, items);
         },
@@ -352,8 +340,10 @@
                 }
             }
 
-            const items = getLocalRaw(STORAGE_KEYS.PRESTATIONS) || [];
-            items.push(rawItem);
+            const items = await this.getPrestations();
+            if (!items.some(item => String(item.id) === String(rawItem.id))) {
+                items.push(rawItem);
+            }
             setLocal(STORAGE_KEYS.PRESTATIONS, items);
         },
 
@@ -367,7 +357,7 @@
                 }
             }
 
-            let items = getLocalRaw(STORAGE_KEYS.PRESTATIONS) || [];
+            let items = await this.getPrestations();
             items = items.filter(item => String(item.id) !== String(id));
             setLocal(STORAGE_KEYS.PRESTATIONS, items);
         },
@@ -425,8 +415,10 @@
                 }
             }
 
-            const items = getLocalRaw(STORAGE_KEYS.TIMELINE) || [];
-            items.push(rawItem);
+            const items = await this.getTimeline();
+            if (!items.some(item => String(item.id) === String(rawItem.id))) {
+                items.push(rawItem);
+            }
             setLocal(STORAGE_KEYS.TIMELINE, items);
         },
 
@@ -440,7 +432,7 @@
                 }
             }
 
-            let items = getLocalRaw(STORAGE_KEYS.TIMELINE) || [];
+            let items = await this.getTimeline();
             items = items.filter(item => String(item.id) !== String(id));
             setLocal(STORAGE_KEYS.TIMELINE, items);
         },
@@ -481,8 +473,10 @@
                 }
             }
 
-            const items = getLocalRaw(STORAGE_KEYS.PARTNERS) || [];
-            items.push(rawItem);
+            const items = await this.getPartners();
+            if (!items.some(item => String(item.id) === String(rawItem.id))) {
+                items.push(rawItem);
+            }
             setLocal(STORAGE_KEYS.PARTNERS, items);
         },
 
@@ -496,7 +490,7 @@
                 }
             }
 
-            let items = getLocalRaw(STORAGE_KEYS.PARTNERS) || [];
+            let items = await this.getPartners();
             items = items.filter(item => String(item.id) !== String(id));
             setLocal(STORAGE_KEYS.PARTNERS, items);
         },
@@ -591,8 +585,10 @@
                 }
             }
 
-            const items = getLocalRaw(STORAGE_KEYS.TESTIMONIALS) || [];
-            items.unshift(rawItem);
+            const items = await this.getTestimonials();
+            if (!items.some(item => String(item.id) === String(rawItem.id))) {
+                items.unshift(rawItem);
+            }
             setLocal(STORAGE_KEYS.TESTIMONIALS, items);
         },
 
@@ -606,7 +602,7 @@
                 }
             }
 
-            let items = getLocalRaw(STORAGE_KEYS.TESTIMONIALS) || [];
+            let items = await this.getTestimonials();
             items = items.filter(item => String(item.id) !== String(id));
             setLocal(STORAGE_KEYS.TESTIMONIALS, items);
         },
@@ -647,8 +643,10 @@
                 }
             }
 
-            const items = getLocalRaw(STORAGE_KEYS.FAQ) || [];
-            items.push(rawItem);
+            const items = await this.getFaq();
+            if (!items.some(item => String(item.id) === String(rawItem.id))) {
+                items.push(rawItem);
+            }
             setLocal(STORAGE_KEYS.FAQ, items);
         },
 
@@ -662,7 +660,7 @@
                 }
             }
 
-            let items = getLocalRaw(STORAGE_KEYS.FAQ) || [];
+            let items = await this.getFaq();
             items = items.filter(item => String(item.id) !== String(id));
             setLocal(STORAGE_KEYS.FAQ, items);
         },
