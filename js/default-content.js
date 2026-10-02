@@ -293,21 +293,25 @@ const DEFAULT_CONTENT = {
     },
     partners: [
         {
+            id: "part_01",
             name: "Entreprise du Patrimoine Vivant",
             logo: "EPV",
             description: "Label d'État récompensant l'excellence des savoir-faire artisanaux français."
         },
         {
+            id: "part_02",
             name: "Compagnons du Devoir",
             logo: "Compagnonnage",
             description: "Filiation avec l'Union Compagnonnique des Devoirs Unis."
         },
         {
+            id: "part_03",
             name: "Ateliers d'Art de France",
             logo: "AAF",
             description: "Syndicat professionnel national des métiers d'art."
         },
         {
+            id: "part_04",
             name: "Fondation du Patrimoine",
             logo: "Patrimoine",
             description: "Partenaire agréé pour la réhabilitation du patrimoine bâti ancien."
@@ -322,21 +326,29 @@ const DEFAULT_CONTENT = {
     },
     timeline: [
         {
+            id: "time_01",
+            date: "1982",
             year: "1982",
             title: "Fondation de l'Atelier Vaucanson",
             description: "François Vaucanson installe sa première forge à charbon sur les quais de Saône à Lyon."
         },
         {
+            id: "time_02",
+            date: "2004",
             year: "2004",
             title: "Agrément Restauration Monuments Historiques",
             description: "L'atelier est sélectionné pour la réfection des grilles d'honneur de la Préfecture du Rhône."
         },
         {
+            id: "time_03",
+            date: "2014",
             year: "2014",
             title: "Reprise par Édouard Vaucanson",
             description: "Après son Tour de France de Compagnon, Édouard prend la direction et introduit le relevé 3D laser."
         },
         {
+            id: "time_04",
+            date: "2021",
             year: "2021",
             title: "Attribution du Label Entreprise du Patrimoine Vivant",
             description: "Consécration nationale reconnaissant la maîtrise des techniques de forge manuelle séculaire."
@@ -351,18 +363,22 @@ const DEFAULT_CONTENT = {
     },
     faq: [
         {
+            id: "faq_01",
             question: "Travaillez-vous avec des profilés métalliques industriels creux ?",
             answer: "Non, formellement. Tous nos ouvrages sont forgés exclusivement à partir d'aciers pleins, de fers marchands étirés ou de fers anciens puddlés pour les restaurations. Cela confère à nos réalisations un poids, une solidité et une résistance à la corrosion incomparables."
         },
         {
+            id: "faq_02",
             question: "Quels sont les délais moyens de fabrication pour un portail ou une rampe ?",
             answer: "Compte tenu de la phase d'étude, du tracé de l'épure, du forgeage manuel et du traitement de surface, un projet complet demande généralement entre 6 et 12 semaines selon la complexité des volutes et des motifs ciselés."
         },
         {
+            id: "faq_03",
             question: "Comment vos ouvrages résistent-ils aux intempéries et à la rouille ?",
             answer: "Chaque pièce extérieure subit une métallisation au pistolet thermique (projection de zinc pur en fusion à 400°C), créant une barrière anticorrosion définitive. Nous appliquons ensuite une patine graphite ou une mise en peinture polyuréthane cuite."
         },
         {
+            id: "faq_04",
             question: "Intervenez-vous hors de la région lyonnaise ?",
             answer: "Oui. Si notre atelier est établi à Lyon, nous intervenons régulièrement sur des demeures de prestige en Bourgogne, en Savoie, en région parisienne et sur l'arc lémanique en Suisse."
         }

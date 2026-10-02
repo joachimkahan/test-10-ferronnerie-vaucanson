@@ -78,6 +78,24 @@
         }
     }
 
+    /**
+     * Garantit que chaque item d'un tableau possède un champ `id` unique.
+     * Empêche le bug de suppression en masse quand les items DEFAULT_CONTENT
+     * n'ont pas de champ `id` (le filtre supprime alors tout via "undefined" === "undefined").
+     * @param {Array} items - Tableau d'objets à vérifier
+     * @param {string} prefix - Préfixe pour les IDs générés (ex: 'gal', 'faq', 'part')
+     * @returns {Array} - Le même tableau avec des IDs garantis
+     */
+    function ensureIds(items, prefix) {
+        if (!Array.isArray(items)) return items;
+        return items.map((item, index) => {
+            if (!item.id) {
+                item.id = prefix + '_default_' + index + '_' + Date.now();
+            }
+            return item;
+        });
+    }
+
     // ── Objet Principal ContentRepository ──────────────────────────
     const ContentRepository = {
 
@@ -101,7 +119,7 @@
                 }
             }
 
-            const list = getLocal(STORAGE_KEYS.GALLERY, fallback);
+            const list = ensureIds(getLocal(STORAGE_KEYS.GALLERY, fallback), 'gal');
             if (window.ContentSchema && typeof window.ContentSchema.migrate === 'function') {
                 return list.map(item => window.ContentSchema.migrate('galleryItem', item));
             }
@@ -138,6 +156,10 @@
         },
 
         deleteGalleryItem: async function (id) {
+            if (!id || id === 'undefined' || id === 'null') {
+                console.warn('[ContentRepository] deleteGalleryItem annulé: ID manquant ou invalide:', id);
+                return;
+            }
             const db = getDb();
             if (db) {
                 try {
@@ -148,7 +170,7 @@
             }
 
             let items = await this.getGallery();
-            items = items.filter(item => String(item.id) !== String(id));
+            items = items.filter(item => item && (!item.id || String(item.id) !== String(id)));
             setLocal(STORAGE_KEYS.GALLERY, items);
         },
 
@@ -172,7 +194,7 @@
                 }
             }
 
-            const list = getLocal(STORAGE_KEYS.LOOKS, fallback);
+            const list = ensureIds(getLocal(STORAGE_KEYS.LOOKS, fallback), 'look');
             if (window.ContentSchema && typeof window.ContentSchema.migrate === 'function') {
                 return list.map(item => window.ContentSchema.migrate('lookItem', item));
             }
@@ -208,6 +230,10 @@
         },
 
         deleteLook: async function (id) {
+            if (!id || id === 'undefined' || id === 'null') {
+                console.warn('[ContentRepository] deleteLook annulé: ID manquant ou invalide:', id);
+                return;
+            }
             const db = getDb();
             if (db) {
                 try {
@@ -218,7 +244,7 @@
             }
 
             let items = await this.getLooks();
-            items = items.filter(item => String(item.id) !== String(id));
+            items = items.filter(item => item && (!item.id || String(item.id) !== String(id)));
             setLocal(STORAGE_KEYS.LOOKS, items);
         },
 
@@ -242,7 +268,7 @@
                 }
             }
 
-            const list = getLocal(STORAGE_KEYS.BEFORE_AFTER, fallback);
+            const list = ensureIds(getLocal(STORAGE_KEYS.BEFORE_AFTER, fallback), 'ba');
             if (window.ContentSchema && typeof window.ContentSchema.migrate === 'function') {
                 return list.map(item => window.ContentSchema.migrate('beforeAfterItem', item));
             }
@@ -278,6 +304,10 @@
         },
 
         deleteBeforeAfterItem: async function (id) {
+            if (!id || id === 'undefined' || id === 'null') {
+                console.warn('[ContentRepository] deleteBeforeAfterItem annulé: ID manquant ou invalide:', id);
+                return;
+            }
             const db = getDb();
             if (db) {
                 try {
@@ -288,7 +318,7 @@
             }
 
             let items = await this.getBeforeAfter();
-            items = items.filter(item => String(item.id) !== String(id));
+            items = items.filter(item => item && (!item.id || String(item.id) !== String(id)));
             setLocal(STORAGE_KEYS.BEFORE_AFTER, items);
         },
 
@@ -312,7 +342,7 @@
                 }
             }
 
-            const list = getLocal(STORAGE_KEYS.PRESTATIONS, fallback);
+            const list = ensureIds(getLocal(STORAGE_KEYS.PRESTATIONS, fallback), 'presta');
             if (window.ContentSchema && typeof window.ContentSchema.migrate === 'function') {
                 return list.map(item => window.ContentSchema.migrate('prestationItem', item));
             }
@@ -348,6 +378,10 @@
         },
 
         deletePrestation: async function (id) {
+            if (!id || id === 'undefined' || id === 'null') {
+                console.warn('[ContentRepository] deletePrestation annulé: ID manquant ou invalide:', id);
+                return;
+            }
             const db = getDb();
             if (db) {
                 try {
@@ -358,7 +392,7 @@
             }
 
             let items = await this.getPrestations();
-            items = items.filter(item => String(item.id) !== String(id));
+            items = items.filter(item => item && (!item.id || String(item.id) !== String(id)));
             setLocal(STORAGE_KEYS.PRESTATIONS, items);
         },
 
@@ -387,7 +421,7 @@
                 }
             }
 
-            const list = getLocal(STORAGE_KEYS.TIMELINE, fallback);
+            const list = ensureIds(getLocal(STORAGE_KEYS.TIMELINE, fallback), 'time');
             if (window.ContentSchema && typeof window.ContentSchema.migrate === 'function') {
                 return list.map(item => window.ContentSchema.migrate('timelineItem', item));
             }
@@ -423,6 +457,10 @@
         },
 
         deleteTimelineItem: async function (id) {
+            if (!id || id === 'undefined' || id === 'null') {
+                console.warn('[ContentRepository] deleteTimelineItem annulé: ID manquant ou invalide:', id);
+                return;
+            }
             const db = getDb();
             if (db) {
                 try {
@@ -433,7 +471,7 @@
             }
 
             let items = await this.getTimeline();
-            items = items.filter(item => String(item.id) !== String(id));
+            items = items.filter(item => item && (!item.id || String(item.id) !== String(id)));
             setLocal(STORAGE_KEYS.TIMELINE, items);
         },
 
@@ -457,7 +495,7 @@
                 }
             }
 
-            return getLocal(STORAGE_KEYS.PARTNERS, fallback);
+            return ensureIds(getLocal(STORAGE_KEYS.PARTNERS, fallback), 'part');
         },
 
         addPartner: async function (rawItem) {
@@ -481,6 +519,10 @@
         },
 
         deletePartner: async function (id) {
+            if (!id || id === 'undefined' || id === 'null') {
+                console.warn('[ContentRepository] deletePartner annulé: ID manquant ou invalide:', id);
+                return;
+            }
             const db = getDb();
             if (db) {
                 try {
@@ -491,7 +533,7 @@
             }
 
             let items = await this.getPartners();
-            items = items.filter(item => String(item.id) !== String(id));
+            items = items.filter(item => item && (!item.id || String(item.id) !== String(id)));
             setLocal(STORAGE_KEYS.PARTNERS, items);
         },
 
@@ -542,6 +584,10 @@
         },
 
         deleteProcessStep: async function (index) {
+            if (typeof index !== 'number' || isNaN(index) || index < 0) {
+                console.warn('[ContentRepository] deleteProcessStep annulé: index invalide:', index);
+                return;
+            }
             const processData = await this.getProcess();
             if (processData && Array.isArray(processData.steps)) {
                 processData.steps.splice(index, 1);
@@ -569,7 +615,7 @@
                 }
             }
 
-            return getLocal(STORAGE_KEYS.TESTIMONIALS, fallback);
+            return ensureIds(getLocal(STORAGE_KEYS.TESTIMONIALS, fallback), 'testi');
         },
 
         addTestimonial: async function (rawItem) {
@@ -593,6 +639,10 @@
         },
 
         deleteTestimonial: async function (id) {
+            if (!id || id === 'undefined' || id === 'null') {
+                console.warn('[ContentRepository] deleteTestimonial annulé: ID manquant ou invalide:', id);
+                return;
+            }
             const db = getDb();
             if (db) {
                 try {
@@ -603,7 +653,7 @@
             }
 
             let items = await this.getTestimonials();
-            items = items.filter(item => String(item.id) !== String(id));
+            items = items.filter(item => item && (!item.id || String(item.id) !== String(id)));
             setLocal(STORAGE_KEYS.TESTIMONIALS, items);
         },
 
@@ -627,7 +677,7 @@
                 }
             }
 
-            return getLocal(STORAGE_KEYS.FAQ, fallback);
+            return ensureIds(getLocal(STORAGE_KEYS.FAQ, fallback), 'faq');
         },
 
         addFaqItem: async function (rawItem) {
@@ -651,6 +701,10 @@
         },
 
         deleteFaqItem: async function (id) {
+            if (!id || id === 'undefined' || id === 'null') {
+                console.warn('[ContentRepository] deleteFaqItem annulé: ID manquant ou invalide:', id);
+                return;
+            }
             const db = getDb();
             if (db) {
                 try {
@@ -661,7 +715,7 @@
             }
 
             let items = await this.getFaq();
-            items = items.filter(item => String(item.id) !== String(id));
+            items = items.filter(item => item && (!item.id || String(item.id) !== String(id)));
             setLocal(STORAGE_KEYS.FAQ, items);
         },
 
